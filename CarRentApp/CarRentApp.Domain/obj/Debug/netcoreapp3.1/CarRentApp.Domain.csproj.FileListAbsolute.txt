@@ -1,9 +1,0 @@
-D:\CarRentApp\CarRentApp\CarRentApp.Domain\bin\Debug\netcoreapp3.1\CarRentApp.Domain.deps.json
-D:\CarRentApp\CarRentApp\CarRentApp.Domain\bin\Debug\netcoreapp3.1\CarRentApp.Domain.dll
-D:\CarRentApp\CarRentApp\CarRentApp.Domain\bin\Debug\netcoreapp3.1\CarRentApp.Domain.pdb
-D:\CarRentApp\CarRentApp\CarRentApp.Domain\obj\Debug\netcoreapp3.1\CarRentApp.Domain.csprojAssemblyReference.cache
-D:\CarRentApp\CarRentApp\CarRentApp.Domain\obj\Debug\netcoreapp3.1\CarRentApp.Domain.AssemblyInfoInputs.cache
-D:\CarRentApp\CarRentApp\CarRentApp.Domain\obj\Debug\netcoreapp3.1\CarRentApp.Domain.AssemblyInfo.cs
-D:\CarRentApp\CarRentApp\CarRentApp.Domain\obj\Debug\netcoreapp3.1\CarRentApp.Domain.csproj.CoreCompileInputs.cache
-D:\CarRentApp\CarRentApp\CarRentApp.Domain\obj\Debug\netcoreapp3.1\CarRentApp.Domain.dll
-D:\CarRentApp\CarRentApp\CarRentApp.Domain\obj\Debug\netcoreapp3.1\CarRentApp.Domain.pdb
