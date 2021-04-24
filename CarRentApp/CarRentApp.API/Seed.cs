@@ -77,15 +77,15 @@ namespace CarRentApp.API
                {
                     var photos = new List<Photo>()
                     {
-                         new Photo { Path = "Cars/2017_mercedes_benz_c_class_angularfront.jpg", CarId = 2 },
-                         new Photo { Path = "Cars/2017_mercedes_benz_c_class_dashboard.jpg", CarId = 2 },
-                         new Photo { Path = "Cars/2017_mercedes_benz_c_class_trunk.jpg", CarId = 2 },
-                         new Photo { Path = "Cars/2015_Toyota_Corolla_15.jpg", CarId = 1 },
-                         new Photo { Path = "Cars/2015_toyota_corolla_angularfront.jpg", CarId = 1 },
-                         new Photo { Path = "Cars/2015_toyota_corolla_trunk.jpg", CarId = 1 },
-                         new Photo { Path = "Cars/2016_bmw_5_series_angularfront.jpg", CarId = 3 },
-                         new Photo { Path = "Cars/2016_bmw_5_series_dashboard.jpg", CarId = 3 },
-                         new Photo { Path = "Cars/2016_bmw_5_series_trunk.jpg", CarId = 3 }
+                         new Photo { Path = "https://localhost:44359/Cars/2017_mercedes_benz_c_class_angularfront.jpg", CarId = 2 },
+                         new Photo { Path = "https://localhost:44359/Cars/2017_mercedes_benz_c_class_dashboard.jpg", CarId = 2 },
+                         new Photo { Path = "https://localhost:44359/Cars/2017_mercedes_benz_c_class_trunk.jpg", CarId = 2 },
+                         new Photo { Path = "https://localhost:44359/Cars/2015_Toyota_Corolla_15.jpg", CarId = 1 },
+                         new Photo { Path = "https://localhost:44359/Cars/2015_toyota_corolla_angularfront.jpg", CarId = 1 },
+                         new Photo { Path = "https://localhost:44359/Cars/2015_toyota_corolla_trunk.jpg", CarId = 1 },
+                         new Photo { Path = "https://localhost:44359/Cars/2016_bmw_5_series_angularfront.jpg", CarId = 3 },
+                         new Photo { Path = "https://localhost:44359/Cars/2016_bmw_5_series_dashboard.jpg", CarId = 3 },
+                         new Photo { Path = "https://localhost:44359/Cars/2016_bmw_5_series_trunk.jpg", CarId = 3 }
                     };
 
                     foreach(var photo in photos)

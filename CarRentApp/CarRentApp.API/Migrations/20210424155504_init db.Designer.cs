@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRentApp.API.Migrations
 {
     [DbContext(typeof(CarRentAppDbContext))]
-    [Migration("20210417123144_initDB")]
-    partial class initDB
+    [Migration("20210424155504_init db")]
+    partial class initdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
