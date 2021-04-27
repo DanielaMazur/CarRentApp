@@ -1,37 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Container, Grid } from "@material-ui/core";
 
 import { CarService } from "services";
+import { useFetch } from "hooks/useFetch";
 
 import { CarCard } from "./car-card";
-
-import { Car } from "types";
 
 import { useStyles } from "./cars-page.styles";
 
 const CarsPage = () => {
   const classes = useStyles();
 
-  const [cars, setCars] = useState<Car.Car[]>([]);
-  const [isCarsLoading, setCarsLoading] = useState(false);
+  const { data: cars, fetch: fetchCars, isLoading: isCarsLoading } = useFetch(
+    CarService.GetCars
+  );
 
   useEffect(() => {
-    fetchCars();
-  }, []);
-
-  const fetchCars = async () => {
-    try {
-      setCarsLoading(true);
-
-      const cars = await CarService.GetCars();
-
-      setCars(cars.data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setCarsLoading(false);
+    if (cars != null) {
+      return;
     }
-  };
+
+    fetchCars();
+
+    //eslint-disable-next-line
+  }, []);
 
   if (isCarsLoading) {
     return <p>Loading...</p>;
@@ -40,7 +32,7 @@ const CarsPage = () => {
   return (
     <Container maxWidth="lg" className={classes.pageContainer}>
       <Grid container spacing={2}>
-        {cars.map((car) => (
+        {cars?.map((car) => (
           <Grid key={car.id} item xs={4}>
             <CarCard car={car} />
           </Grid>

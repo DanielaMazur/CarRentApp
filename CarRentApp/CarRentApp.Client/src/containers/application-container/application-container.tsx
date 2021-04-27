@@ -1,21 +1,28 @@
-import { ThemeProvider } from "@material-ui/core";
 import { useLocation } from "react-router";
 
-import { Navbar } from "components";
+import { useCarRentAppContext } from "context/useCarRentAppContext";
 
-import { theme } from "theme";
+import { Navbar, Snackbar } from "components";
 
 const AUTHENTICATION_PATHS = ["/sign-in", "/sign-up"];
 
-const ApplicationContainer = () => {
+const ApplicationContainer: React.FC = (props) => {
   const location = useLocation();
+
+  const { snackbars } = useCarRentAppContext();
 
   const hideSidebar = AUTHENTICATION_PATHS.some((path) =>
     location.pathname.includes(path)
   );
 
   return (
-    <ThemeProvider theme={theme}>{!hideSidebar && <Navbar />}</ThemeProvider>
+    <>
+      {!hideSidebar && <Navbar />}
+      {props.children}
+      {snackbars.map((snackbar) => (
+        <Snackbar key={snackbar.id} {...snackbar} />
+      ))}
+    </>
   );
 };
 

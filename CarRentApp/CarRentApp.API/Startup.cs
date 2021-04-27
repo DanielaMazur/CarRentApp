@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using CarRentApp.API.Services.Interfaces;
 using CarRentApp.API.Services;
+using CarRentApp.API.Infrastructure.Extensions;
+using Microsoft.AspNetCore.Identity;
+using CarRentApp.Domain.Auth;
 
 namespace CarRentApp.API
 {
@@ -29,7 +32,18 @@ namespace CarRentApp.API
                     optionBuilder.UseSqlServer(Configuration.GetConnectionString("CarRentConnection"));
                });
 
+               var authOptions = services.ConfigureAuthOptions(Configuration);
+               services.AddJwtAuthentication(authOptions);
+
                services.AddControllers();
+
+               services.AddIdentity<User, Role>(options =>
+               {
+                    options.Password.RequiredLength = 8;
+               })
+               .AddEntityFrameworkStores<CarRentAppDbContext>();
+
+               services.AddScoped<IAccountService, AccountService>();
                services.AddScoped<IRepository, EFCoreRepository>();
                services.AddScoped<ICarService, CarService>();
                services.AddAutoMapper(Assembly.GetExecutingAssembly());

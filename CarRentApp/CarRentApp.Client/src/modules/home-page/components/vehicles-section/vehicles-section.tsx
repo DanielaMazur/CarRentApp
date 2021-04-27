@@ -1,4 +1,5 @@
 import { Grid, Typography, Box } from "@material-ui/core";
+import { useHistory } from "react-router";
 
 import { VEHICLE_TYPES } from "const";
 
@@ -6,6 +7,7 @@ import { useStyles } from "./vehicle-section.styles";
 
 const VehiclesSection = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Box>
@@ -23,7 +25,12 @@ const VehiclesSection = () => {
         className={classes.chooseCarSection}
       >
         {VEHICLE_TYPES.map((car) => (
-          <Grid item key={car.name} xs={4}>
+          <Grid
+            item
+            key={car.name}
+            xs={4}
+            onClick={() => history.push("/cars")}
+          >
             <Box className={classes.carTypeContainer}>
               <img src={car.icon} alt="carIcon" className={classes.carImage} />
               <Typography variant="subtitle1" className={classes.carName}>
