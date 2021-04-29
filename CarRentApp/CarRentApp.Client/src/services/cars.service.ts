@@ -1,9 +1,9 @@
-import { API } from "./api";
+import { fetchApi } from "./fetchApi";
 
 import { Car } from "types";
 
 const GetCars = () => {
-  return API.get<Car.Car[]>("/cars");
+  return fetchApi<Car.Car[]>("/cars");
 };
 
 const CarService = {

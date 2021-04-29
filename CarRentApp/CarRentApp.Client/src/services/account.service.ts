@@ -1,9 +1,16 @@
-import { API } from "./api";
-
 import { Account } from "types";
 
+import { fetchApi } from "./fetchApi";
+
 const SignUp = (account: Account.Account) => {
-  return API.post<Account.AccountToken>("/account/register", account);
+  return fetchApi<Account.AccountToken>("/account/register", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(account),
+  });
 };
 
 const AccountService = { SignUp };

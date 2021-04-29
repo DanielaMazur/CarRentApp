@@ -8,7 +8,7 @@ export type CarCardProps = {
   car: Car.Car;
 };
 
-const CarCard: React.FC<CarCardProps> = ({ car }) => {
+const CarCard = ({ car }: CarCardProps) => {
   const classes = useStyles();
 
   return (

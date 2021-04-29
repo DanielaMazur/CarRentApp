@@ -7,7 +7,7 @@ export type SnackbarProps = {
   message: string;
 };
 
-const Snackbar: React.FC<SnackbarProps> = (props) => {
+const Snackbar = (props: SnackbarProps) => {
   return (
     <MUISnackbar open>
       <Alert elevation={6} variant="filled" severity={props.status}>

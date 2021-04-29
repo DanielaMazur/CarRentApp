@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Avatar,
   Grid,
@@ -39,13 +39,7 @@ const SignUp = () => {
     },
   });
 
-  useEffect(() => {
-    fetchImage();
-
-    //eslint-disable-next-line
-  }, []);
-
-  const fetchImage = async () => {
+  const fetchImage = useCallback(async () => {
     try {
       const image = await unsplash.photos.getRandom({ query: "automobile" });
 
@@ -53,13 +47,17 @@ const SignUp = () => {
     } catch (error) {
       addSnackbar({ status: "error", message: error.message });
     }
-  };
+  }, [addSnackbar]);
+
+  useEffect(() => {
+    fetchImage();
+  }, [fetchImage]);
 
   const handleFormSubmit = async (credentials: Account.Account) => {
     try {
       const account = await AccountService.SignUp(credentials);
 
-      console.log({ account: account.data.token });
+      console.log({ account });
     } catch (error) {
       addSnackbar({
         status: "error",
