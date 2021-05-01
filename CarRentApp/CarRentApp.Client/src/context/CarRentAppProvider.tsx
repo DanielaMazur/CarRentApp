@@ -33,7 +33,10 @@ const CarRentAppProvider: React.FC = (props) => {
     }, 4000);
   };
 
-  const contextValues = { snackbars, handlers: { addSnackbar } };
+  const contextValues = {
+    snackbars,
+    handlers: { addSnackbar },
+  };
 
   return (
     <CarRentAppContext.Provider value={contextValues}>

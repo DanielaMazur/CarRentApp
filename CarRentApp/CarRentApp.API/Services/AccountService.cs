@@ -55,14 +55,14 @@ namespace CarRentApp.API.Services
                return null;
           }
 
-          public async Task<string> SignUp(AccountLoginDto userForLoginDto)
+          public async Task SignUp(AccountLoginDto userForLoginDto)
           {
                var user = new User { Email = userForLoginDto.Email, UserName = userForLoginDto.Email };
                var result = await _userManager.CreateAsync(user, userForLoginDto.Password);
 
                if (result.Succeeded)
                {
-                    return await Login(userForLoginDto);
+                    return;
                }
 
                foreach (var error in result.Errors)

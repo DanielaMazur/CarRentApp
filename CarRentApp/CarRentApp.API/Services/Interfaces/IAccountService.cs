@@ -6,6 +6,6 @@ namespace CarRentApp.API.Services.Interfaces
      public interface IAccountService
      {
           Task<string> Login(AccountLoginDto userForLoginDto);
-          Task<string> SignUp(AccountLoginDto userForLoginDto);
+          Task SignUp(AccountLoginDto userForLoginDto);
      }
 }

@@ -36,9 +36,9 @@ namespace CarRentApp.API.Controllers
           [HttpPost("register")]
           public async Task<IActionResult> Register(AccountLoginDto userForLoginDto)
           {
-               var accessToken = await _accountService.SignUp(userForLoginDto);
+               await _accountService.SignUp(userForLoginDto);
 
-               return Ok(new { AccessToken = accessToken });
+               return Ok();
           }
      }
 }

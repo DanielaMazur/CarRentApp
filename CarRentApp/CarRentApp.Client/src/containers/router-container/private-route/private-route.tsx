@@ -1,6 +1,14 @@
-import { RouteProps, Route } from "react-router";
+import { RouteProps, Route, Redirect } from "react-router";
 
-const PrivateRoute: React.FC<RouteProps> = (props) => {
+import { useAuth } from "services/authProvider";
+
+const PrivateRoute = (props: RouteProps) => {
+  const [isUserAuth] = useAuth();
+
+  if (!isUserAuth) {
+    return <Redirect to="sign-in" />;
+  }
+
   return <Route {...props} />;
 };
 

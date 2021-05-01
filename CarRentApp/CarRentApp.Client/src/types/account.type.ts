@@ -5,6 +5,6 @@ export declare module Account {
   };
 
   export type AccountToken = {
-    token: string;
+    accessToken: string;
   };
 }
