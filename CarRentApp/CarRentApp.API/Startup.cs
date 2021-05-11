@@ -10,8 +10,9 @@ using Microsoft.Extensions.Hosting;
 using CarRentApp.API.Services.Interfaces;
 using CarRentApp.API.Services;
 using CarRentApp.API.Infrastructure.Extensions;
-using Microsoft.AspNetCore.Identity;
 using CarRentApp.Domain.Auth;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace CarRentApp.API
 {
@@ -35,7 +36,10 @@ namespace CarRentApp.API
                var authOptions = services.ConfigureAuthOptions(Configuration);
                services.AddJwtAuthentication(authOptions);
 
-               services.AddControllers();
+               services.AddControllers(options =>
+               {
+                    options.Filters.Add(new AuthorizeFilter());
+               });
 
                services.AddIdentity<User, Role>(options =>
                {
@@ -43,12 +47,41 @@ namespace CarRentApp.API
                })
                .AddEntityFrameworkStores<CarRentAppDbContext>();
 
-               services.AddScoped<IAccountService, AccountService>();
                services.AddScoped<IRepository, EFCoreRepository>();
+               services.AddScoped<IAccountService, AccountService>();
                services.AddScoped<ICarService, CarService>();
+               services.AddScoped<ICarFiltersService, CarFiltersService>();
+               services.AddScoped<IReservationService, ReservationService>();
                services.AddAutoMapper(Assembly.GetExecutingAssembly());
-               services.AddSwaggerGen();
+               services.AddHttpContextAccessor();
+               services.AddSwaggerGen(c =>
+               {
+                    c.SwaggerDoc("v1", new OpenApiInfo
+                    {
+                         Version = "v1",
+                         Title = "API",
+                    });
+                    var securitySchema = new OpenApiSecurityScheme
+                    {
+                         Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                         Name = "Authorization",
+                         In = ParameterLocation.Header,
+                         Type = SecuritySchemeType.Http,
+                         Scheme = "bearer",
+                         Reference = new OpenApiReference
+                         {
+                              Type = ReferenceType.SecurityScheme,
+                              Id = "Bearer"
+                         }
+                    };
+                    c.AddSecurityDefinition("Bearer", securitySchema);
+
+                    var securityRequirement = new OpenApiSecurityRequirement();
+                    securityRequirement.Add(securitySchema, new[] { "Bearer" });
+                    c.AddSecurityRequirement(securityRequirement);
+               });
           }
+
 
           // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
           public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -71,6 +104,8 @@ namespace CarRentApp.API
                app.UseStaticFiles();
 
                app.UseRouting();
+
+               app.UseAuthentication();
 
                app.UseAuthorization();
 

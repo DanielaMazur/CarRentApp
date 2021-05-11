@@ -22,7 +22,9 @@ namespace CarRentApp.API.Infrastructure.Extensions
 
                          await Seed.SeedCars(context);
                          await Seed.SeedPhotos(context);
-
+                         await Seed.SeedTransmissions(context);
+                         await Seed.SeedCarBody(context);
+                         await Seed.SeedFuel(context);
                     }
                     catch (Exception ex)
                     {

@@ -2,9 +2,9 @@ import { useHistory } from "react-router";
 
 import { AccountService } from "services";
 import { useCarRentAppContext } from "context/useCarRentAppContext";
+import { login } from "services/authProvider";
 
 import { Authentication } from "components";
-import { login } from "services/authProvider";
 
 import { Account } from "types";
 

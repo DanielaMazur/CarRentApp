@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using CarRentApp.API.Dtos.Cars;
+using CarRentApp.API.Dtos.Car;
 using CarRentApp.API.Infrastructure.Exceptions;
 using CarRentApp.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;

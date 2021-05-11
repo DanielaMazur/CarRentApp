@@ -17,7 +17,11 @@ const Navbar = () => {
         >
           CARENT
         </Typography>
-        <Button color="inherit" className={classes.loginButton}>
+        <Button
+          color="inherit"
+          className={classes.loginButton}
+          onClick={() => history.push("/sign-in")}
+        >
           Login
         </Button>
       </Toolbar>

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CarRentApp.API.Infrastructure.Models;
-using CarRentApp.Domain;
+using CarRentApp.Domain.Intefaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRentApp.API.Infrastructure.Extensions
@@ -12,7 +12,7 @@ namespace CarRentApp.API.Infrastructure.Extensions
      public static class QueryableExtensions
      {
           public async static Task<PaginatedResult<TDto>> CreatePaginatedResultAsync<TEntity, TDto>(this IQueryable<TEntity> query, PaginatedRequest paginatedRequest, IMapper mapper)
-            where TEntity : EntityBase
+            where TEntity : IEntity
             where TDto : class
           {
                query = query.ApplyFilters(paginatedRequest);

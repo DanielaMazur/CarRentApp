@@ -2,16 +2,21 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using CarRentApp.Domain.Enums;
+using CarRentApp.Domain.Intefaces;
 
 namespace CarRentApp.Domain
 {
-     public class Car :  EntityBase
+     public class Car : IEntity
      {
+          public int Id { get ; set; }
           public string Brand { get; set; }
           public string Color { get; set; }
+          public FuelEnum FuelId { get; set; }
           public Fuel Fuel { get; set; }
+          public TransmissionEnum TransmissionId { get; set; }
           public Transmission Transmission { get; set; }
-          public CarBody Body { get; set; }
+          public CarBodyEnum CarBodyId { get; set; }
+          public CarBody CarBody { get; set; }
           public DateTime FabricationYear { get; set; }
           public string RegistrationNumber { get; set; }
           public string Model { get; set; }

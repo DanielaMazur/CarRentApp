@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CarRentApp.API.Dtos.Photos;
+using CarRentApp.API.Dtos.Photo;
 using CarRentApp.Domain;
 
 namespace CarRentApp.API.Profiles

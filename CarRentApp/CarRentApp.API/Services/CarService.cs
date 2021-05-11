@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CarRentApp.API.Dtos.Cars;
+using CarRentApp.API.Dtos.Car;
 using CarRentApp.API.Infrastructure.Exceptions;
 using CarRentApp.API.Repositories.Interfaces;
 using CarRentApp.API.Services.Interfaces;
@@ -12,7 +12,7 @@ namespace CarRentApp.API.Services
 {
      public class CarService : ICarService
      {
-          private IRepository _repository;
+          private readonly IRepository _repository;
 
           public CarService(IRepository repository)
           {
@@ -21,12 +21,12 @@ namespace CarRentApp.API.Services
 
           public async Task<ICollection<Car>> GetCars()
           {
-               return await _repository.GetAllWithInclude<Car>(c => c.Photos);
+               return await _repository.GetAllWithInclude<Car>(c => c.Photos, c => c.Reservations);
           }
 
           public async Task<Car> GetCarById(int id)
           {
-               var car = await _repository.GetById<Car>(id);
+               var car = await _repository.GetByIdWithInclude<Car>(id, c => c.Photos);
 
                if (car == null)
                {
@@ -47,9 +47,9 @@ namespace CarRentApp.API.Services
                {
                     Brand = newCar.Brand,
                     Color = newCar.Color,
-                    Fuel = newCar.Fuel,
-                    Transmission = newCar.Transmission,
-                    Body = newCar.Body,
+                    FuelId = newCar.FuelId,
+                    TransmissionId = newCar.TransmissionId,
+                    CarBodyId = newCar.CarBodyId,
                     FabricationYear = newCar.FabricationYear,
                     RegistrationNumber = newCar.RegistrationNumber,
                     Model = newCar.Model,
@@ -65,20 +65,11 @@ namespace CarRentApp.API.Services
                return createdCar;
           }
 
-          public async Task<bool> RemoveCarById(int id)
+          public async Task RemoveCarById(int id)
           {
-               var carToDelete = await _repository.GetById<Car>(id);
-
-               if (carToDelete == null)
-               {
-                    return false;
-               }
-
                await _repository.Delete<Car>(id);
 
                await _repository.SaveAll();
-
-               return true;
           }
 
           public async Task<Car> UpdateCar(int id, UpdateCarDto updatedCar)
@@ -105,14 +96,14 @@ namespace CarRentApp.API.Services
                     car.Color = updatedCar.Color;
                }
 
-               if (updatedCar.Fuel.HasValue)
+               if (updatedCar.FuelId.HasValue)
                {
-                    car.Fuel = updatedCar.Fuel.Value;
+                    car.FuelId = updatedCar.FuelId.Value;
                }
 
-               if (updatedCar.Transmission.HasValue)
+               if (updatedCar.TransmissionId.HasValue)
                {
-                    car.Transmission = updatedCar.Transmission.Value;
+                    car.TransmissionId = updatedCar.TransmissionId.Value;
                }
 
                if (updatedCar.FabricationYear.HasValue)
@@ -130,9 +121,9 @@ namespace CarRentApp.API.Services
                     car.Brand = updatedCar.Brand;
                }
 
-               if (updatedCar.Body.HasValue)
+               if (updatedCar.CarBodyId.HasValue)
                {
-                    car.Body = updatedCar.Body.Value;
+                    car.CarBodyId = updatedCar.CarBodyId.Value;
                }
 
                if (updatedCar.AirCoditioning.HasValue)

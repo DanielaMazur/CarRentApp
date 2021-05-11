@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Container, Grid } from "@material-ui/core";
+import { useHistory } from "react-router";
 
+import { useCarRentAppContext } from "context/useCarRentAppContext";
 import { CarService } from "services";
 import { useFetch } from "hooks/useFetch";
 
@@ -10,9 +12,15 @@ import { useStyles } from "./cars-page.styles";
 
 const CarsPage = () => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const {
+    handlers: { setCars },
+  } = useCarRentAppContext();
 
   const { data: cars, fetch: fetchCars, isLoading: isCarsLoading } = useFetch(
-    CarService.GetCars
+    CarService.GetCars,
+    setCars
   );
 
   useEffect(() => {
@@ -33,7 +41,12 @@ const CarsPage = () => {
     <Container maxWidth="lg" className={classes.pageContainer}>
       <Grid container spacing={2}>
         {cars?.map((car) => (
-          <Grid key={car.id} item xs={4}>
+          <Grid
+            key={car.id}
+            item
+            xs={4}
+            onClick={() => history.push(`/cars/${car.id}`)}
+          >
             <CarCard car={car} />
           </Grid>
         ))}

@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using CarRentApp.API.Infrastructure.Configurations;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CarRentApp.API.Infrastructure.Extensions
 {
@@ -14,6 +15,7 @@ namespace CarRentApp.API.Infrastructure.Extensions
                {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                }).AddJwtBearer(options =>
                {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -29,7 +31,7 @@ namespace CarRentApp.API.Infrastructure.Extensions
                          ValidateIssuerSigningKey = true,
                          IssuerSigningKey = authOptions.GetSymmetricSecurityKey(),
                     };
-               });
+               }).AddCookie();
           }
 
           public static AuthOptions ConfigureAuthOptions(this IServiceCollection services, IConfiguration configuration)

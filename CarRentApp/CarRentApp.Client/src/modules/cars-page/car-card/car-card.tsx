@@ -12,7 +12,7 @@ const CarCard = ({ car }: CarCardProps) => {
   const classes = useStyles();
 
   return (
-    <Card>
+    <Card className={classes.card}>
       <CardMedia
         className={classes.imageContainer}
         image={car.photos[0]?.path}

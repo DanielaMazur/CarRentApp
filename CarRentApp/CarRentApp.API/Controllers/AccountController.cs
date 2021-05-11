@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using CarRentApp.API.Dtos.Account;
 using CarRentApp.API.Services.Interfaces;
 using CarRentApp.API.Infrastructure.Exceptions;
+using AutoMapper;
 
 namespace CarRentApp.API.Controllers
 {
@@ -12,13 +13,16 @@ namespace CarRentApp.API.Controllers
      public class AccountController : ControllerBase
      {
           public readonly IAccountService _accountService;
+          private readonly IMapper _mapper;
 
-          public AccountController(IAccountService accountService)
+          public AccountController(IAccountService accountService, IMapper mapper)
           {
                _accountService = accountService;
+               _mapper = mapper;
           }
 
           [AllowAnonymous]
+          [ApiExceptionFilter]
           [HttpPost("login")]
           public async Task<IActionResult> Login(AccountLoginDto userForLoginDto)
           {
@@ -32,11 +36,33 @@ namespace CarRentApp.API.Controllers
                return Ok(new { AccessToken = accessToken });
           }
 
+          [AllowAnonymous]
           [ApiExceptionFilter]
           [HttpPost("register")]
           public async Task<IActionResult> Register(AccountLoginDto userForLoginDto)
           {
                await _accountService.SignUp(userForLoginDto);
+
+               return Ok();
+          }
+
+          [Authorize]
+          [HttpGet]
+          public IActionResult GetAccount()
+          {
+               var account = _accountService.GetUserWithRole();
+
+               var accountDto = _mapper.Map<AccountDto>(account);
+
+               return Ok(accountDto);
+          }
+
+          [Authorize]
+          [ApiExceptionFilter]
+          [HttpPost("clients")]
+          public async Task<IActionResult> PostClient(CreateClientDto client)
+          {
+               await _accountService.AddClient(client);
 
                return Ok();
           }

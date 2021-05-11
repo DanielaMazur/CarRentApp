@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CarRentApp.Domain;
-using CarRentApp.Domain.Auth;
-using Microsoft.AspNetCore.Identity;
+using CarRentApp.Domain.Enums;
 
 namespace CarRentApp.API
 {
@@ -15,28 +15,28 @@ namespace CarRentApp.API
                {
                     var car1 = new Car
                     {
-                        Brand = "Toyota",
-                        Color = "red",
-                        Fuel = Domain.Enums.Fuel.Diesel,
-                        Transmission = Domain.Enums.Transmission.Mecanic,
-                        Body = Domain.Enums.CarBody.Sedan,
-                        FabricationYear = new System.DateTime(2015, 1, 1),
-                        RegistrationNumber = "ABC123",
-                        Model = "Corola", 
-                        NumberOfDoors = 4,
-                        NumberOfSeats = 5,
-                        AirCoditioning = true,
-                        PricePerDay = 13,
+                         Brand = "Toyota",
+                         Color = "red",
+                         FuelId = FuelEnum.Diesel,
+                         TransmissionId = TransmissionEnum.Mecanic,
+                         CarBodyId = CarBodyEnum.Sedan,
+                         FabricationYear = new DateTime(2015, 1, 1),
+                         RegistrationNumber = "ABC123",
+                         Model = "Corola",
+                         NumberOfDoors = 4,
+                         NumberOfSeats = 5,
+                         AirCoditioning = true,
+                         PricePerDay = 13,
                     };
 
                     var car2 = new Car
                     {
                          Brand = "Mercedes",
                          Color = "blue",
-                         Fuel = Domain.Enums.Fuel.Gasoline,
-                         Transmission = Domain.Enums.Transmission.Mecanic,
-                         Body = Domain.Enums.CarBody.Sedan,
-                         FabricationYear = new System.DateTime(2017, 1, 1),
+                         FuelId = FuelEnum.Gasoline,
+                         TransmissionId = TransmissionEnum.Mecanic,
+                         CarBodyId = CarBodyEnum.Sedan,
+                         FabricationYear = new DateTime(2017, 1, 1),
                          RegistrationNumber = "ASD512",
                          Model = "C-Class",
                          NumberOfDoors = 2,
@@ -50,10 +50,10 @@ namespace CarRentApp.API
                     {
                          Brand = "BMW",
                          Color = "grey",
-                         Fuel = Domain.Enums.Fuel.Gasoline,
-                         Transmission = Domain.Enums.Transmission.Automatic,
-                         Body = Domain.Enums.CarBody.Sedan,
-                         FabricationYear = new System.DateTime(2016, 1, 1),
+                         FuelId = FuelEnum.Gasoline,
+                         TransmissionId = TransmissionEnum.Automatic,
+                         CarBodyId = CarBodyEnum.Sedan,
+                         FabricationYear = new DateTime(2016, 1, 1),
                          RegistrationNumber = "AFD988",
                          Model = "5-Series",
                          NumberOfDoors = 4,
@@ -61,7 +61,6 @@ namespace CarRentApp.API
                          AirCoditioning = true,
                          PricePerDay = 20
                     };
-
 
                     context.Cars.Add(car1);
                     context.Cars.Add(car2);
@@ -88,7 +87,7 @@ namespace CarRentApp.API
                          new Photo { Path = "https://localhost:44359/Cars/2016_bmw_5_series_trunk.jpg", CarId = 3 }
                     };
 
-                    foreach(var photo in photos)
+                    foreach (var photo in photos)
                     {
                          context.Photos.Add(photo);
                     }
@@ -96,56 +95,60 @@ namespace CarRentApp.API
                     await context.SaveChangesAsync();
                }
           }
-
-          public static async Task SeedCarReservations(CarRentAppDbContext context)
+          public static async Task SeedTransmissions(CarRentAppDbContext context)
           {
-               if (!context.Clients.Any())
+               if (!context.Transmissions.Any())
                {
-                    //var manning = new CarReservation()
-                    //{
-                    //     Name = "Manning Publications"
-                    //};
+                    var transmissions = Enum.GetValues(typeof(TransmissionEnum))
+                                             .OfType<TransmissionEnum>()
+                                             .Select(x => new Transmission() { Id = (int)x, Type = x.ToString() })
+                                             .ToArray();
 
-                    //context.Clients.Add(manning);
-                    //context.Clients.Add(microsoftPress);
-                    //context.Clients.Add(apress);
-                    //context.Clients.Add(oReillyMedia);
-                    //context.Clients.Add(packtPublishing);
 
-                    await context.SaveChangesAsync();
-               }
-          }
-
-          public static async Task SeedReservations(CarRentAppDbContext context)
-          {
-               if (!context.Clients.Any())
-               {
-                    //var manning = new Reservation()
-                    //{
-                    //     Name = "Manning Publications"
-                    //};
-
-                    //context.Clients.Add(manning);
-                    //context.Clients.Add(microsoftPress);
-                    //context.Clients.Add(apress);
-                    //context.Clients.Add(oReillyMedia);
-                    //context.Clients.Add(packtPublishing);
-
-                    await context.SaveChangesAsync();
-               }
-          }
-
-          public static async Task SeedUsers(UserManager<Client> userManager)
-          {
-               if (!userManager.Users.Any())
-               {
-                    var user = new Client()
+                    foreach (var transmission in transmissions)
                     {
-                         UserName = "admin",
-                         Email = "admin@onlinebookshop.com",
-                    };
+                         context.Transmissions.Add(transmission);
+                    }
 
-                    await userManager.CreateAsync(user, "Qwerty1!");
+                    await context.SaveChangesAsync();
+               }
+          }
+          public static async Task SeedFuel(CarRentAppDbContext context)
+          {
+               if (!context.Fuel.Any())
+               {
+                    var fuels = Enum.GetValues(typeof(FuelEnum))
+                                             .OfType<FuelEnum>()
+                                             .Select(x => new Fuel() { Id = (int)x, Type = x.ToString() })
+                                             .ToArray();
+
+
+                    foreach (var fuel in fuels)
+                    {
+                         context.Fuel.Add(fuel);
+                    }
+
+                    await context.SaveChangesAsync();
+               }
+          }
+
+
+          public static async Task SeedCarBody(CarRentAppDbContext context)
+          {
+               if (!context.CarBody.Any())
+               {
+                    var carBodies = Enum.GetValues(typeof(CarBodyEnum))
+                                             .OfType<CarBodyEnum>()
+                                             .Select(x => new CarBody() { Id = (int)x, Type = x.ToString() })
+                                             .ToArray();
+
+
+                    foreach (var carBody in carBodies)
+                    {
+                         context.CarBody.Add(carBody);
+                    }
+
+                    await context.SaveChangesAsync();
                }
           }
      }

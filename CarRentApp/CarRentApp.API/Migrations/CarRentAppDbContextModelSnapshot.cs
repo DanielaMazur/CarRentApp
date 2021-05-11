@@ -226,15 +226,16 @@ namespace CarRentApp.API.Migrations
                     b.Property<bool>("AirCoditioning")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
                     b.Property<string>("Brand")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("CarBodyId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CarBodyId1")
+                        .HasColumnType("int");
 
                     b.Property<string>("Color")
                         .IsRequired()
@@ -244,10 +245,11 @@ namespace CarRentApp.API.Migrations
                     b.Property<DateTime>("FabricationYear")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Fuel")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.Property<int>("FuelId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FuelId1")
+                        .HasColumnType("int");
 
                     b.Property<string>("Model")
                         .IsRequired()
@@ -268,17 +270,70 @@ namespace CarRentApp.API.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<string>("Transmission")
+                    b.Property<int>("TransmissionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TransmissionId1")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarBodyId1");
+
+                    b.HasIndex("FuelId1");
+
+                    b.HasIndex("RegistrationNumber")
+                        .IsUnique();
+
+                    b.HasIndex("TransmissionId1");
+
+                    b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("CarRentApp.Domain.CarBody", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CarBody");
+                });
+
+            modelBuilder.Entity("CarRentApp.Domain.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DriverLicenseId")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RegistrationNumber")
+                    b.HasIndex("DriverLicenseId")
                         .IsUnique();
 
-                    b.ToTable("Cars");
+                    b.ToTable("Clients");
+                });
+
+            modelBuilder.Entity("CarRentApp.Domain.Fuel", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Fuel");
                 });
 
             modelBuilder.Entity("CarRentApp.Domain.Photo", b =>
@@ -331,35 +386,18 @@ namespace CarRentApp.API.Migrations
                     b.ToTable("Reservations");
                 });
 
-            modelBuilder.Entity("CarRentApp.Domain.Auth.Admin", b =>
+            modelBuilder.Entity("CarRentApp.Domain.Transmission", b =>
                 {
-                    b.HasBaseType("CarRentApp.Domain.Auth.User");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
-                    b.ToTable("Admin", "Auth");
-                });
-
-            modelBuilder.Entity("CarRentApp.Domain.Auth.Client", b =>
-                {
-                    b.HasBaseType("CarRentApp.Domain.Auth.User");
-
-                    b.Property<string>("DriverLicenseId")
-                        .IsRequired()
+                    b.Property<string>("Type")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<long>("IDNP")
-                        .HasMaxLength(50)
-                        .HasColumnType("bigint");
+                    b.HasKey("Id");
 
-                    b.HasIndex("DriverLicenseId")
-                        .IsUnique()
-                        .HasFilter("[DriverLicenseId] IS NOT NULL");
-
-                    b.HasIndex("IDNP")
-                        .IsUnique()
-                        .HasFilter("[IDNP] IS NOT NULL");
-
-                    b.ToTable("Clients", "Auth");
+                    b.ToTable("Transmissions");
                 });
 
             modelBuilder.Entity("CarRentApp.Domain.Auth.RoleClaim", b =>
@@ -413,6 +451,38 @@ namespace CarRentApp.API.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CarRentApp.Domain.Car", b =>
+                {
+                    b.HasOne("CarRentApp.Domain.CarBody", "CarBody")
+                        .WithMany()
+                        .HasForeignKey("CarBodyId1");
+
+                    b.HasOne("CarRentApp.Domain.Fuel", "Fuel")
+                        .WithMany()
+                        .HasForeignKey("FuelId1");
+
+                    b.HasOne("CarRentApp.Domain.Transmission", "Transmission")
+                        .WithMany()
+                        .HasForeignKey("TransmissionId1");
+
+                    b.Navigation("CarBody");
+
+                    b.Navigation("Fuel");
+
+                    b.Navigation("Transmission");
+                });
+
+            modelBuilder.Entity("CarRentApp.Domain.Client", b =>
+                {
+                    b.HasOne("CarRentApp.Domain.Auth.User", "User")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("CarRentApp.Domain.Photo", b =>
                 {
                     b.HasOne("CarRentApp.Domain.Car", null)
@@ -430,7 +500,7 @@ namespace CarRentApp.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarRentApp.Domain.Auth.Client", "Client")
+                    b.HasOne("CarRentApp.Domain.Client", "Client")
                         .WithMany("Reservations")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -441,24 +511,6 @@ namespace CarRentApp.API.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("CarRentApp.Domain.Auth.Admin", b =>
-                {
-                    b.HasOne("CarRentApp.Domain.Auth.User", null)
-                        .WithOne()
-                        .HasForeignKey("CarRentApp.Domain.Auth.Admin", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CarRentApp.Domain.Auth.Client", b =>
-                {
-                    b.HasOne("CarRentApp.Domain.Auth.User", null)
-                        .WithOne()
-                        .HasForeignKey("CarRentApp.Domain.Auth.Client", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("CarRentApp.Domain.Car", b =>
                 {
                     b.Navigation("Photos");
@@ -466,7 +518,7 @@ namespace CarRentApp.API.Migrations
                     b.Navigation("Reservations");
                 });
 
-            modelBuilder.Entity("CarRentApp.Domain.Auth.Client", b =>
+            modelBuilder.Entity("CarRentApp.Domain.Client", b =>
                 {
                     b.Navigation("Reservations");
                 });

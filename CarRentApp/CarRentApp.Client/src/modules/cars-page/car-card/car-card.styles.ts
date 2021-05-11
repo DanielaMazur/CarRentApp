@@ -5,6 +5,9 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     minHeight: "200px",
   },
+  card: {
+    cursor: "pointer",
+  },
 }));
 
 export { useStyles };
