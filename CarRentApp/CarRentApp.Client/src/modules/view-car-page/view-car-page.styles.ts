@@ -2,11 +2,26 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   imageSlider: {
-    width: 600,
+    width: "100%",
+
+    "& .slick-arrow::before": {
+      color: "black",
+    },
   },
-  container: {
+  gridContainer: {
     display: "flex",
     marginTop: 20,
+    flexWrap: "wrap",
+    padding: "10px",
+  },
+  pageContainer: {
+    padding: "20px",
+  },
+  goBackButton: {
+    marginTop: "30px",
+  },
+  rentButton: {
+    color: "white",
   },
 }));
 

@@ -4,6 +4,7 @@ using AutoMapper;
 using CarRentApp.API.Dtos.Car;
 using CarRentApp.API.Infrastructure.Exceptions;
 using CarRentApp.API.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRentApp.API.Controllers
@@ -21,6 +22,7 @@ namespace CarRentApp.API.Controllers
                _carService = carService;
           }
 
+          [AllowAnonymous]
           [HttpGet]
           public async Task<IActionResult> Get()
           {
@@ -31,6 +33,7 @@ namespace CarRentApp.API.Controllers
                return Ok(carsDto);
           }
 
+          [AllowAnonymous]
           [HttpGet("{id}")]
           [ApiExceptionFilter]
           public async Task<IActionResult> Get(int id)
@@ -52,6 +55,7 @@ namespace CarRentApp.API.Controllers
                
                return Ok(carDto);
           }
+
 
           [HttpPatch("{id}")]
           [ApiExceptionFilter]

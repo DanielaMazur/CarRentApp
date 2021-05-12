@@ -13,6 +13,7 @@ using CarRentApp.API.Infrastructure.Extensions;
 using CarRentApp.Domain.Auth;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace CarRentApp.API
 {
@@ -33,9 +34,6 @@ namespace CarRentApp.API
                     optionBuilder.UseSqlServer(Configuration.GetConnectionString("CarRentConnection"));
                });
 
-               var authOptions = services.ConfigureAuthOptions(Configuration);
-               services.AddJwtAuthentication(authOptions);
-
                services.AddControllers(options =>
                {
                     options.Filters.Add(new AuthorizeFilter());
@@ -45,7 +43,10 @@ namespace CarRentApp.API
                {
                     options.Password.RequiredLength = 8;
                })
-               .AddEntityFrameworkStores<CarRentAppDbContext>();
+               .AddEntityFrameworkStores<CarRentAppDbContext>().AddDefaultTokenProviders();
+
+               var authOptions = services.ConfigureAuthOptions(Configuration);
+               services.AddJwtAuthentication(authOptions);
 
                services.AddScoped<IRepository, EFCoreRepository>();
                services.AddScoped<IAccountService, AccountService>();
@@ -95,7 +96,7 @@ namespace CarRentApp.API
 
                app.UseSwaggerUI(c =>
                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CarRentApp V1");
                     c.RoutePrefix = string.Empty;
                });
 

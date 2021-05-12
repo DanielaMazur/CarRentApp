@@ -1,11 +1,19 @@
-import { AppBar, Toolbar, Button, Typography } from "@material-ui/core";
+import { AppBar, Toolbar, Button, Typography, Box } from "@material-ui/core";
+import { useCarRentAppContext } from "context/useCarRentAppContext";
 import { useHistory } from "react-router";
+
+import { useAuth } from "services/authProvider";
+
+import { Avatar } from "components";
 
 import { useStyles } from "./navbar.styles";
 
 const Navbar = () => {
   const history = useHistory();
   const classes = useStyles();
+
+  const [isAuthenticated] = useAuth();
+  const { user } = useCarRentAppContext();
 
   return (
     <AppBar position="static">
@@ -17,13 +25,16 @@ const Navbar = () => {
         >
           CARENT
         </Typography>
-        <Button
-          color="inherit"
-          className={classes.loginButton}
-          onClick={() => history.push("/sign-in")}
-        >
-          Login
-        </Button>
+
+        <Box ml="auto">
+          {isAuthenticated ? (
+            <Avatar name={user?.email || ""} />
+          ) : (
+            <Button color="secondary" onClick={() => history.push("/sign-in")}>
+              <b>Login</b>
+            </Button>
+          )}
+        </Box>
       </Toolbar>
     </AppBar>
   );

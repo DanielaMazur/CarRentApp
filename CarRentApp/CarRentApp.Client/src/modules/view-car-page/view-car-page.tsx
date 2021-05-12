@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
-import { useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Box, Typography, Container } from "@material-ui/core";
+import { Grid, Container, Button } from "@material-ui/core";
 
-import { AccountService, CarService } from "services";
+import { CarService } from "services";
 import { useCarRentAppContext } from "context/useCarRentAppContext";
+
+import { ViewCarDetails } from "./view-car-details";
 
 import { Car } from "types";
 
@@ -25,6 +27,7 @@ const SliderSettings = {
 
 const ViewCarPage = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [currentCar, setCurrentCar] = useState<Car.Car | null>(null);
 
   const {
@@ -59,54 +62,46 @@ const ViewCarPage = () => {
 
   useEffect(() => {
     fetchCarData();
-
-    AccountService.GetCurrentAccount();
   }, [fetchCarData]);
+
+  const handleGoBackToCars = () => {
+    history.push("/cars");
+  };
 
   if (currentCar == null) {
     return <p>The car was not found</p>;
   }
 
   return (
-    <Container>
-      <Box className={classes.container}>
-        <Slider className={classes.imageSlider} {...SliderSettings}>
-          {currentCar?.photos.map((photo) => (
-            <img key={photo.path} src={photo.path} alt="car" />
-          ))}
-        </Slider>
+    <Container className={classes.pageContainer}>
+      <Grid
+        container
+        spacing={7}
+        className={classes.gridContainer}
+        alignItems="center"
+        justify="center"
+      >
+        <Grid item md={6} xs={12}>
+          <Slider className={classes.imageSlider} {...SliderSettings}>
+            {currentCar?.photos.map((photo) => (
+              <img key={photo.path} src={photo.path} alt="car" />
+            ))}
+          </Slider>
+        </Grid>
 
-        <Box ml="40px">
-          <Typography variant="h3">
-            {currentCar?.brand} {currentCar?.model}
-          </Typography>
-          <Typography variant="h5">Fuel: {currentCar?.fuel}</Typography>
-          <Typography variant="h5">
-            Transmission: {currentCar?.transmission}
-          </Typography>
-          <Typography variant="h5">Car Body: {currentCar?.body}</Typography>
-          <Typography variant="h5">
-            Fabrication Year:
-            {currentCar
-              ? new Date(`${currentCar.fabricationYear}`).getFullYear()
-              : 0}
-          </Typography>
-          <Typography variant="h5">
-            Registration Number: {currentCar?.registrationNumber}
-          </Typography>
-          <Typography variant="h5">
-            Number Of Seats: {currentCar?.numberOfSeats}
-          </Typography>
-          <Typography variant="h5">
-            Number Of Doors: {currentCar?.numberOfDoors}
-          </Typography>
-          <Typography variant="h5">
-            Air Coditioning: {currentCar?.airCoditioning.toString()}
-          </Typography>
+        <Grid item md={6} xs={12}>
+          <ViewCarDetails car={currentCar} />
+        </Grid>
+      </Grid>
 
-          <Typography variant="h2">Price: {currentCar?.pricePerDay}</Typography>
-        </Box>
-      </Box>
+      <Button
+        className={classes.goBackButton}
+        variant="outlined"
+        color="secondary"
+        onClick={handleGoBackToCars}
+      >
+        Go Back to all cars
+      </Button>
     </Container>
   );
 };

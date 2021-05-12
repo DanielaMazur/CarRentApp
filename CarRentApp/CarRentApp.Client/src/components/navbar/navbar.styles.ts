@@ -6,9 +6,6 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     cursor: "pointer",
   },
-  loginButton: {
-    marginLeft: "auto",
-  },
 });
 
 export { useStyles };

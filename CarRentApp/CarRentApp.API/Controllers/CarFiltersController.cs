@@ -2,12 +2,14 @@
 using CarRentApp.API.Dtos.CarFilters;
 using CarRentApp.API.Services.Interfaces;
 using CarRentApp.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CarRentApp.API.Controllers
 {
+     [AllowAnonymous]
      [Route("api/filters")]
      [ApiController]
      public class CarFiltersController : ControllerBase

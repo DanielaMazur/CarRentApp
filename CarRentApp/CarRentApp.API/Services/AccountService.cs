@@ -39,42 +39,40 @@ namespace CarRentApp.API.Services
           {
                var checkingPasswordResult = await _signInManager.PasswordSignInAsync(userData.Email, userData.Password, false, false);
 
-               if (!checkingPasswordResult.Succeeded)
+               if (checkingPasswordResult.Succeeded)
                {
-                    return null;
-               }
+                    var signinCredentials = new SigningCredentials(_authenticationOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256);
+                    var users = await _repository.GetAll<User>();
+                    var user = users.FirstOrDefault(u => u.Email == userData.Email);
+                    
+                    if (user == null)
+                    {
+                         throw new NotFoundException("A user with such Id was not found!");
+                    }
 
-               var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var userClaims = await _userManager.GetClaimsAsync(user);
 
-               if (userId == null)
-               {
-                    throw new NotFoundException("A user with such Id was not found!");
-               }
-
-               var user = await _userManager.FindByIdAsync(userId);
-
-               if (user == null)
-               {
-                    throw new NotFoundException("A user with such Id was not found!");
-               }
-
-               var userClaims = await _userManager.GetClaimsAsync(user);
-
-               var loginClaims = new[] {
+                    var loginClaims = new[] {
                     new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                     new Claim(JwtRegisteredClaimNames.Email, userData.Email),
                    };
 
-               var signIn = new SigningCredentials(_authenticationOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256);
+                    var jwtSecurityToken = new JwtSecurityToken(
+                         issuer: _authenticationOptions.Issuer,
+                         audience: _authenticationOptions.Audience,
+                         claims: loginClaims.Concat(userClaims).ToArray(),
+                         expires: DateTime.Now.AddDays(30),
+                         signingCredentials: signinCredentials
+                    );
 
-               var token = new JwtSecurityToken(
-                    _authenticationOptions.Issuer,
-                    _authenticationOptions.Audience,
-                    claims: loginClaims.Concat(userClaims).ToArray(),
-                    expires: DateTime.UtcNow.AddDays(1),
-                    signingCredentials: signIn);
+                    var tokenHandler = new JwtSecurityTokenHandler();
 
-               return new JwtSecurityTokenHandler().WriteToken(token);
+                    var encodedToken = tokenHandler.WriteToken(jwtSecurityToken);
+
+                    return encodedToken;
+               }
+
+               return null;
           }
 
           public async Task SignUp(AccountLoginDto userForLoginDto)

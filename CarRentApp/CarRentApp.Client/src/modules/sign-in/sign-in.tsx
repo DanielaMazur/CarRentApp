@@ -19,6 +19,10 @@ const SignIn = () => {
     try {
       const { accessToken } = await AccountService.SignIn(credentials);
 
+      if (accessToken == null) {
+        throw Error("Sign In Failed!");
+      }
+
       login({
         accessToken,
       });
