@@ -76,10 +76,10 @@ const ViewCarPage = () => {
     <Container className={classes.pageContainer}>
       <Grid
         container
-        spacing={7}
         className={classes.gridContainer}
         alignItems="center"
         justify="center"
+        spacing={7}
       >
         <Grid item md={6} xs={12}>
           <Slider className={classes.imageSlider} {...SliderSettings}>

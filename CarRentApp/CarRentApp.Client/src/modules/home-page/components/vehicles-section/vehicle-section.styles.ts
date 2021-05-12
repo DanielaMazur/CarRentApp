@@ -30,6 +30,10 @@ const useStyles = makeStyles(() => ({
   carName: {
     textAlign: "center",
   },
+  showAllCarsButton: {
+    margin: "15px auto 30px auto",
+    color: "white",
+  },
 }));
 
 export { useStyles };

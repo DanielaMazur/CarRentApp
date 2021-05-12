@@ -8,51 +8,49 @@ const RentDetailsSection = () => {
   const classes = useStyles();
 
   return (
-    <div>
-      <Grid container className={classes.rentCarStepsSection}>
-        <Grid item xs={6}>
-          <Typography variant="h4" color="secondary">
-            How to order?
-          </Typography>
-          <Box className={classes.rentStepTitleContainer}>
-            <Box className={classes.stepContainer}>1</Box>
-            <Box>
-              <Typography variant="h6">First Step</Typography>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </Typography>
-            </Box>
+    <Grid container className={classes.rentCarStepsSection}>
+      <Grid item xs={6}>
+        <Typography variant="h4" color="secondary">
+          How to order?
+        </Typography>
+        <Box className={classes.rentStepTitleContainer}>
+          <Box className={classes.stepContainer}>1</Box>
+          <Box>
+            <Typography variant="h6">First Step</Typography>
+            <Typography>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </Typography>
           </Box>
+        </Box>
 
-          <Box className={classes.rentStepTitleContainer}>
-            <Box className={classes.stepContainer}>2</Box>
-            <Box>
-              <Typography variant="h6">Second Step</Typography>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </Typography>
-            </Box>
+        <Box className={classes.rentStepTitleContainer}>
+          <Box className={classes.stepContainer}>2</Box>
+          <Box>
+            <Typography variant="h6">Second Step</Typography>
+            <Typography>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </Typography>
           </Box>
+        </Box>
 
-          <Box className={classes.rentStepTitleContainer}>
-            <Box className={classes.stepContainer}>3</Box>
-            <Box>
-              <Typography variant="h6">Third Step</Typography>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </Typography>
-            </Box>
+        <Box className={classes.rentStepTitleContainer}>
+          <Box className={classes.stepContainer}>3</Box>
+          <Box>
+            <Typography variant="h6">Third Step</Typography>
+            <Typography>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </Typography>
           </Box>
-        </Grid>
-
-        <Grid item xs={6}>
-          <img src={RentCarSteps} alt="car" />
-        </Grid>
+        </Box>
       </Grid>
-    </div>
+
+      <Grid item xs={6}>
+        <img src={RentCarSteps} alt="car" />
+      </Grid>
+    </Grid>
   );
 };
 

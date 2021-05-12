@@ -4,7 +4,6 @@ import Minivan from "assets/images/minivan.jpg";
 import Sedan from "assets/images/sedan.jpg";
 import Suv from "assets/images/suv.jpg";
 import Pickup from "assets/images/pickup.jpg";
-import Supercar from "assets/images/supercar.jpg";
 
 const VEHICLE_TYPES = [
   {
@@ -31,10 +30,6 @@ const VEHICLE_TYPES = [
   {
     icon: Pickup,
     name: "Pickup",
-  },
-  {
-    icon: Supercar,
-    name: "Super Car",
   },
 ];
 

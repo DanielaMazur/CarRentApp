@@ -1,4 +1,4 @@
-import { Grid, Typography, Box } from "@material-ui/core";
+import { Grid, Typography, Box, Button } from "@material-ui/core";
 import { useHistory } from "react-router";
 
 import { VEHICLE_TYPES } from "const";
@@ -9,8 +9,10 @@ const VehiclesSection = () => {
   const classes = useStyles();
   const history = useHistory();
 
+  const handleShowAllVehicles = () => history.push("/cars");
+
   return (
-    <Box>
+    <Box display="flex" flexDirection="column">
       <Typography
         variant="h3"
         color="secondary"
@@ -40,6 +42,15 @@ const VehiclesSection = () => {
           </Grid>
         ))}
       </Grid>
+
+      <Button
+        className={classes.showAllCarsButton}
+        variant="contained"
+        color="primary"
+        onClick={handleShowAllVehicles}
+      >
+        Show All Cars
+      </Button>
     </Box>
   );
 };

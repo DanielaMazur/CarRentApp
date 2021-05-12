@@ -3,7 +3,7 @@ import { useLocation } from "react-router";
 
 import { useCarRentAppContext } from "context/useCarRentAppContext";
 
-import { Navbar, Snackbar } from "components";
+import { Navbar, Snackbar, Footer } from "components";
 import { AccountService } from "services";
 
 const AUTHENTICATION_PATHS = ["/sign-in", "/sign-up"];
@@ -46,6 +46,7 @@ const ApplicationContainer = (props: { children: ReactNode }) => {
       {snackbars.map((snackbar) => (
         <Snackbar key={snackbar.id} {...snackbar} />
       ))}
+      <Footer />
     </>
   );
 };

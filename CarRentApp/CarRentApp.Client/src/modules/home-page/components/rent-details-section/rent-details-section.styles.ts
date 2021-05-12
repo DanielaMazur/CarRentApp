@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   rentCarStepsSection: {
     maxWidth: "1000px",
-    margin: "auto",
+    margin: "20px auto",
   },
   stepContainer: {
     borderRadius: "50%",

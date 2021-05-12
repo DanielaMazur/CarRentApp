@@ -16,6 +16,7 @@ const useStyles = makeStyles(() => ({
   },
   pageContainer: {
     padding: "20px",
+    width: "90%",
   },
   goBackButton: {
     marginTop: "30px",
