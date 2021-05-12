@@ -7,15 +7,13 @@ const useStyles = makeStyles(() => ({
     margin: "30px 0",
   },
   chooseCarSection: {
-    maxWidth: "800px",
-    margin: "0 auto",
+    alignSelf: "center",
   },
   carTypeContainer: {
     cursor: "pointer",
     display: "flex",
     flexDirection: "column",
     height: "100%",
-    padding: "5px",
     borderRadius: "10px",
     filter: " grayscale(100%)",
 

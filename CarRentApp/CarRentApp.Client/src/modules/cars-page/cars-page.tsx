@@ -18,10 +18,11 @@ const CarsPage = () => {
     handlers: { setCars },
   } = useCarRentAppContext();
 
-  const { data: cars, fetch: fetchCars, isLoading: isCarsLoading } = useFetch(
-    CarService.GetCars,
-    setCars
-  );
+  const {
+    data: cars,
+    fetch: fetchCars,
+    isLoading: isCarsLoading,
+  } = useFetch(CarService.GetCars, setCars);
 
   useEffect(() => {
     if (cars != null) {
@@ -44,7 +45,9 @@ const CarsPage = () => {
           <Grid
             key={car.id}
             item
-            xs={4}
+            md={4}
+            sm={6}
+            xs={12}
             onClick={() => history.push(`/cars/${car.id}`)}
           >
             <CarCard car={car} />

@@ -13,7 +13,11 @@ const Footer = () => {
           </Typography>
 
           <Box ml="auto">
-            <Typography className={classes.footerText} variant="body1">
+            <Typography
+              className={classes.footerText}
+              variant="body1"
+              align="right"
+            >
               If you have any questions you can find us here : carrent@mail.com
             </Typography>
           </Box>

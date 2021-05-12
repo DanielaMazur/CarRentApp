@@ -1,6 +1,6 @@
 import { Grid, Typography, Box } from "@material-ui/core";
 
-import RentCarSteps from "assets/images/rent-car-steps.png";
+import HowToOrder from "assets/images/how-to-order.png";
 
 import { useStyles } from "./rent-details-section.styles";
 
@@ -9,10 +9,7 @@ const RentDetailsSection = () => {
 
   return (
     <Grid container className={classes.rentCarStepsSection}>
-      <Grid item xs={6}>
-        <Typography variant="h4" color="secondary">
-          How to order?
-        </Typography>
+      <Grid item sm={6} xs={12} className={classes.rentDetailsContainer}>
         <Box className={classes.rentStepTitleContainer}>
           <Box className={classes.stepContainer}>1</Box>
           <Box>
@@ -47,8 +44,8 @@ const RentDetailsSection = () => {
         </Box>
       </Grid>
 
-      <Grid item xs={6}>
-        <img src={RentCarSteps} alt="car" />
+      <Grid item sm={6} xs={12}>
+        <img className={classes.rentImage} src={HowToOrder} alt="how" />
       </Grid>
     </Grid>
   );

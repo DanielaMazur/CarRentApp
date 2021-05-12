@@ -12,7 +12,7 @@ const VehiclesSection = () => {
   const handleShowAllVehicles = () => history.push("/cars");
 
   return (
-    <Box display="flex" flexDirection="column">
+    <Box display="flex" flexDirection="column" p="10px">
       <Typography
         variant="h3"
         color="secondary"
@@ -30,7 +30,8 @@ const VehiclesSection = () => {
           <Grid
             item
             key={car.name}
-            xs={4}
+            sm={4}
+            xs={6}
             onClick={() => history.push("/cars")}
           >
             <Box className={classes.carTypeContainer}>

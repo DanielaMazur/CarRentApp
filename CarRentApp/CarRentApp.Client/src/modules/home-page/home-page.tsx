@@ -1,3 +1,5 @@
+import { Container } from "@material-ui/core";
+
 import { RentDetailsSection } from "./components/rent-details-section";
 import { VehiclesSection } from "./components/vehicles-section";
 
@@ -12,9 +14,11 @@ const HomePage = () => {
     <div className={classes.pageContainer}>
       <img src={CarPoster} alt="car" className={classes.bannerImage} />
 
-      <VehiclesSection />
+      <Container maxWidth="md">
+        <VehiclesSection />
 
-      <RentDetailsSection />
+        <RentDetailsSection />
+      </Container>
     </div>
   );
 };

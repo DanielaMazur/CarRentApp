@@ -2,8 +2,12 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   rentCarStepsSection: {
-    maxWidth: "1000px",
-    margin: "20px auto",
+    margin: "20px 0",
+  },
+  rentDetailsContainer: {
+    [theme.breakpoints.down("xs")]: {
+      order: 2,
+    },
   },
   stepContainer: {
     borderRadius: "50%",
@@ -22,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginBottom: "15px",
     marginTop: "25px",
+  },
+  rentImage: {
+    maxHeight: "520px",
+    width: "100%",
+    margin: "auto",
   },
 }));
 
