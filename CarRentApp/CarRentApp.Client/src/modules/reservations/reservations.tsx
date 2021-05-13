@@ -9,7 +9,10 @@ import { ReservationCard } from "./reservation-card";
 
 import { Reservation } from "types";
 
+import { useStyles } from "./reservations.styles";
+
 const Reservations = () => {
+  const classes = useStyles();
   const {
     fetch: fetchReservations,
     data: reservations,
@@ -27,10 +30,10 @@ const Reservations = () => {
   }
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={4}>
         {reservations?.map((res) => (
-          <Grid key={res.id} item md={4} sm={6} xs={12}>
+          <Grid key={res.id} item md={6} xs={12}>
             <ReservationCard reservation={res} />
           </Grid>
         ))}

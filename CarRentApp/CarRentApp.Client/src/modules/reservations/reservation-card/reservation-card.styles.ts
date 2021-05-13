@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     backgroundPosition: "center",
   },
+  paper: {
+    padding: "10px",
+  },
 }));
 
 export { useStyles };

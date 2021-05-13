@@ -23,14 +23,22 @@ const ReservationCard = (props: ReservationCardProps) => {
   );
 
   return (
-    <Paper>
+    <Paper className={classes.paper}>
       <Grid container>
         <Grid item xs={6}>
           <Typography variant="h5">{car?.brand}</Typography>
-          <Typography>{car?.model}</Typography>
-          <Typography>Start Date {props.reservation.startDate}</Typography>
-          <Typography>End Date {props.reservation.endDate}</Typography>
-          <Typography>Price {reservationPrice.toFixed(0)}</Typography>
+          <Typography variant="subtitle2">{car?.model}</Typography>
+          <Typography>
+            Start date:{" "}
+            {new Date(props.reservation.startDate).toLocaleDateString("ro")}
+          </Typography>
+          <Typography>
+            End date:{" "}
+            {new Date(props.reservation.endDate).toLocaleDateString("ro")}
+          </Typography>
+          <Typography color="error" variant="h6">
+            <b> Price {reservationPrice.toFixed(0)}</b>
+          </Typography>
         </Grid>
         <Grid item xs={6} className={classes.carImage}></Grid>
       </Grid>
