@@ -32,9 +32,7 @@ const CarsPage = () => {
     }
 
     fetchCars();
-
-    //eslint-disable-next-line
-  }, []);
+  }, [cars, fetchCars]);
 
   if (isCarsLoading) {
     return <LoadingPage />;

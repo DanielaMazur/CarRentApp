@@ -21,9 +21,7 @@ const Reservations = () => {
 
   useEffect(() => {
     fetchReservations();
-
-    //eslint-disable-next-line
-  }, []);
+  }, [fetchReservations]);
 
   if (isLoading) {
     return <LoadingPage />;

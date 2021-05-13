@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import { useCarRentAppContext } from "context/useCarRentAppContext";
 
@@ -13,26 +13,29 @@ const useFetch = <T>(
     handlers: { addSnackbar },
   } = useCarRentAppContext();
 
-  const fetch = async (...args: any) => {
-    try {
-      setLoading(true);
+  const fetch = useCallback(
+    async (...args: any) => {
+      try {
+        setLoading(true);
 
-      const response = await service(args);
+        const response = await service(args);
 
-      setData(response);
+        setData(response);
 
-      if (setContextState) {
-        setContextState(response);
+        if (setContextState) {
+          setContextState(response);
+        }
+      } catch (error) {
+        addSnackbar({
+          status: "error",
+          message: error.message,
+        });
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      addSnackbar({
-        status: "error",
-        message: error.message,
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [setLoading, addSnackbar, setContextState, service]
+  );
 
   return { isLoading, data, fetch };
 };

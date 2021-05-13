@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Paper,
   Grid,
@@ -45,7 +45,7 @@ const Authentication = (props: AuthenticationProps) => {
     },
   });
 
-  const fetchImage = async () => {
+  const fetchImage = useCallback(async () => {
     try {
       const image = await unsplash.photos.getRandom({ query: "automobile" });
 
@@ -53,13 +53,11 @@ const Authentication = (props: AuthenticationProps) => {
     } catch (error) {
       addSnackbar({ status: "error", message: error.message });
     }
-  };
+  }, [addSnackbar]);
 
   useEffect(() => {
     fetchImage();
-
-    //eslint-disable-next-line
-  }, []);
+  }, [fetchImage]);
 
   return (
     <Grid container component="main" className={classes.root}>
