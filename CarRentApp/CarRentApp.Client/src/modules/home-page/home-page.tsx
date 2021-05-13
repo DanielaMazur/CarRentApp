@@ -1,6 +1,6 @@
 import { Container } from "@material-ui/core";
 
-import { RentDetailsSection } from "./components/rent-details-section";
+import { RentStepsSection } from "./components/rent-steps-section";
 import { VehiclesSection } from "./components/vehicles-section";
 
 import CarPoster from "assets/images/car-poster.jpg";
@@ -17,7 +17,7 @@ const HomePage = () => {
       <Container maxWidth="md">
         <VehiclesSection />
 
-        <RentDetailsSection />
+        <RentStepsSection />
       </Container>
     </div>
   );
