@@ -2,7 +2,7 @@ import { useCarRentAppContext } from "context/useCarRentAppContext";
 import { AccountService } from "services";
 import { login } from "services/authProvider";
 
-import { Authentication } from "components";
+import { Authentication, Form } from "components";
 
 import { Account } from "types";
 
@@ -26,7 +26,11 @@ const SignUp = () => {
     }
   };
 
-  return <Authentication isSignIn={false} handleFormSubmit={handleSignUp} />;
+  return (
+    <Authentication isSignIn={false}>
+      <Form.SignUp handleFormSubmit={handleSignUp} />
+    </Authentication>
+  );
 };
 
 export { SignUp };

@@ -14,7 +14,7 @@ const SignUp = (account: Account.Account) => {
   });
 };
 
-const SignIn = (account: Account.Account) => {
+const SignIn = (account: Account.SignInAccount) => {
   return fetchApi<Account.AccountToken>("/account/login", {
     method: "POST",
     headers: {

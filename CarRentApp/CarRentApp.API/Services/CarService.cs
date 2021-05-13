@@ -153,7 +153,7 @@ namespace CarRentApp.API.Services
                return car;
           }
 
-          public async Task<bool> CheckIfRegistrationNumberExists(string registrationNumber)
+          private async Task<bool> CheckIfRegistrationNumberExists(string registrationNumber)
           {
 
                try

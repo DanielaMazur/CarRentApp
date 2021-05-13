@@ -4,7 +4,7 @@ import { AccountService } from "services";
 import { useCarRentAppContext } from "context/useCarRentAppContext";
 import { login } from "services/authProvider";
 
-import { Authentication } from "components";
+import { Authentication, Form } from "components";
 
 import { Account } from "types";
 
@@ -15,7 +15,7 @@ const SignIn = () => {
     handlers: { addSnackbar },
   } = useCarRentAppContext();
 
-  const handleSignIn = async (credentials: Account.Account) => {
+  const handleSignIn = async (credentials: Account.SignInAccount) => {
     try {
       const { accessToken } = await AccountService.SignIn(credentials);
 
@@ -36,7 +36,11 @@ const SignIn = () => {
     }
   };
 
-  return <Authentication isSignIn handleFormSubmit={handleSignIn} />;
+  return (
+    <Authentication isSignIn>
+      <Form.SignIn handleFormSubmit={handleSignIn} />
+    </Authentication>
+  );
 };
 
 export { SignIn };

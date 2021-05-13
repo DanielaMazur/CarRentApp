@@ -1,32 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
-import {
-  Paper,
-  Grid,
-  Avatar,
-  Typography,
-  TextField,
-  Button,
-} from "@material-ui/core";
-import { useForm, Controller } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { Paper, Grid, Avatar, Typography } from "@material-ui/core";
+
+import { Link } from "react-router-dom";
+
+import { ReactNode } from "react";
 
 import { unsplash } from "services";
 import { useCarRentAppContext } from "context/useCarRentAppContext";
 
-import { Account } from "types";
-
 import { useStyles } from "./authentication.styles";
-import { Link } from "react-router-dom";
-
-const SignUpFormSchema = yup.object().shape({
-  email: yup.string().email().required("Email is required"),
-  password: yup.string().required("Password is required").min(8),
-});
 
 export type AuthenticationProps = {
-  handleFormSubmit: (credentials: Account.Account) => void;
   isSignIn: boolean;
+
+  children: ReactNode;
 };
 
 const Authentication = (props: AuthenticationProps) => {
@@ -37,13 +24,6 @@ const Authentication = (props: AuthenticationProps) => {
   const {
     handlers: { addSnackbar },
   } = useCarRentAppContext();
-  const { handleSubmit, control } = useForm({
-    resolver: yupResolver(SignUpFormSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
 
   const fetchImage = useCallback(async () => {
     try {
@@ -68,69 +48,8 @@ const Authentication = (props: AuthenticationProps) => {
           <Typography component="h1" variant="h5">
             {props.isSignIn ? "Sign In" : "Sign Up"}
           </Typography>
-          <form
-            className={classes.form}
-            onSubmit={handleSubmit(props.handleFormSubmit)}
-          >
-            <Controller
-              control={control}
-              name="email"
-              render={({
-                field: { onChange, onBlur, value },
-                fieldState: { invalid, error },
-              }) => (
-                <TextField
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  error={invalid}
-                  variant="outlined"
-                  margin="normal"
-                  id="email"
-                  label="Email Address"
-                  fullWidth
-                  autoComplete="email"
-                  autoFocus
-                  helperText={error?.message}
-                />
-              )}
-            />
 
-            <Controller
-              control={control}
-              name="password"
-              render={({
-                field: { onChange, onBlur, value },
-                fieldState: { invalid, error },
-              }) => (
-                <TextField
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  error={invalid}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  helperText={error?.message}
-                />
-              )}
-            />
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              {props.isSignIn ? "Sign In" : "Sign Up"}
-            </Button>
-          </form>
+          {props.children}
 
           <Typography>
             {props.isSignIn
