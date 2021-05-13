@@ -20,7 +20,9 @@ const CarCard = ({ car }: CarCardProps) => {
       />
       <CardContent>
         <Typography variant="h6" color="textSecondary">
-          {car.brand} {car.model}
+          <b>
+            {car.brand} {car.model}
+          </b>
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
           <b>Transmission:</b> {car.transmission}
@@ -28,7 +30,7 @@ const CarCard = ({ car }: CarCardProps) => {
         <Typography variant="body2" color="textSecondary" component="p">
           <b>Doors:</b> {car.numberOfDoors}
         </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant="h6" color="error">
           <b>Price:</b> {car.pricePerDay}
         </Typography>
       </CardContent>

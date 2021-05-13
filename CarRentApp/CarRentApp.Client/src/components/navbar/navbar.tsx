@@ -33,7 +33,7 @@ const Navbar = () => {
           className={classes.logo}
           onClick={() => history.push("/")}
         >
-          CARENT
+          CARRENT
         </Typography>
 
         <Box ml="auto">

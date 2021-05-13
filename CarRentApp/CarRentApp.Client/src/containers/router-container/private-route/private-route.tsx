@@ -6,7 +6,7 @@ const PrivateRoute = (props: RouteProps) => {
   const [isUserAuth] = useAuth();
 
   if (!isUserAuth) {
-    return <Redirect to="sign-in" />;
+    return <Redirect to="/sign-in" />;
   }
 
   return <Route {...props} />;

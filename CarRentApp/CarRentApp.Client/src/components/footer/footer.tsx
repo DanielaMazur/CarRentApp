@@ -18,7 +18,7 @@ const Footer = () => {
               variant="body1"
               align="right"
             >
-              If you have any questions you can find us here : carrent@mail.com
+              carrent@mail.com
             </Typography>
           </Box>
         </Toolbar>

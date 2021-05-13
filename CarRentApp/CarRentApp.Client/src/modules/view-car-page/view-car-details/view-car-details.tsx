@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Typography, Box, Button } from "@material-ui/core";
+import { Typography, Box, Button, Tooltip } from "@material-ui/core";
 
 import { ReservationsService } from "services";
+import { useAuth } from "services/authProvider";
 
 import { useCarRentAppContext } from "context/useCarRentAppContext";
 import { RentCarModal } from "components";
@@ -16,6 +17,9 @@ export type ViewCarDetailsProps = {
 
 const ViewCarDetails = (props: ViewCarDetailsProps) => {
   const classes = useStyles();
+
+  const [isAuth] = useAuth();
+
   const [isRentModalOpen, setRentModalOpen] = useState(false);
 
   const {
@@ -88,16 +92,30 @@ const ViewCarDetails = (props: ViewCarDetailsProps) => {
         alignItems="center"
         justifyContent="space-between"
       >
-        <Typography variant="h3">Price: {props.car.pricePerDay}</Typography>
+        <Typography variant="h3" color="error">
+          <b>Price: {props.car.pricePerDay}</b>
+        </Typography>
 
-        <Button
-          className={classes.rentButton}
-          variant="contained"
-          color="primary"
-          onClick={handleOpenRentModal}
+        <Tooltip
+          title={
+            isAuth
+              ? "Click here to make a reservation"
+              : "You should login first"
+          }
+          aria-label="add"
         >
-          Rent
-        </Button>
+          <Box>
+            <Button
+              className={classes.rentButton}
+              variant="contained"
+              color="primary"
+              onClick={handleOpenRentModal}
+              disabled={!isAuth}
+            >
+              Rent
+            </Button>
+          </Box>
+        </Tooltip>
 
         <RentCarModal
           carPrice={props.car.pricePerDay}
