@@ -295,6 +295,9 @@ namespace CarRentApp.API.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
                     b.Property<string>("Type")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
@@ -350,6 +353,9 @@ namespace CarRentApp.API.Migrations
                         .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
