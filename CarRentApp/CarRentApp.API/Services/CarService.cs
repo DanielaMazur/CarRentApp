@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using CarRentApp.API.Models.Car;
 using CarRentApp.API.Infrastructure.Exceptions;
-using CarRentApp.API.Repositories.Interfaces;
 using CarRentApp.API.Services.Interfaces;
 using CarRentApp.Domain;
+using CarRentApp.Domain.EFMapping.Repositories.Interfaces;
 
 namespace CarRentApp.API.Services
 {

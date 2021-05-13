@@ -1,5 +1,4 @@
-﻿using CarRentApp.API.Repositories.Interfaces;
-using CarRentApp.Domain;
+﻿using CarRentApp.Domain.EFMapping.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace CarRentApp.API.Repositories
+namespace CarRentApp.Domain.EFMapping.Repositories
 {
      public class CarRepository : Repository<Car>, ICarRepository
      {

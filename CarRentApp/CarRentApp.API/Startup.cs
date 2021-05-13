@@ -1,7 +1,5 @@
 using System.Reflection;
-using CarRentApp.API.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using CarRentApp.API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +12,9 @@ using CarRentApp.Domain.Auth;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Identity;
+using CarRentApp.Domain.EFMapping.Repositories.Interfaces;
+using CarRentApp.Domain.EFMapping.Repositories;
+using CarRentApp.Domain.EFMapping;
 
 namespace CarRentApp.API
 {

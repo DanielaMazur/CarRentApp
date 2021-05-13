@@ -1,7 +1,8 @@
-﻿using CarRentApp.API.Repositories.Interfaces;
-using CarRentApp.Domain;
+﻿
 
-namespace CarRentApp.API.Repositories
+using CarRentApp.Domain.EFMapping.Repositories.Interfaces;
+
+namespace CarRentApp.Domain.EFMapping.Repositories
 {
      public class CarBodyRepository : Repository<CarBody>, ICarBodyRepository
      {

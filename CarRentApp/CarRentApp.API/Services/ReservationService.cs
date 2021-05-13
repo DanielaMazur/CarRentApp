@@ -1,12 +1,12 @@
 ﻿using CarRentApp.API.Models.Reservation;
 using CarRentApp.API.Infrastructure.Exceptions;
-using CarRentApp.API.Repositories.Interfaces;
 using CarRentApp.API.Services.Interfaces;
 using CarRentApp.Domain;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using CarRentApp.Domain.EFMapping.Repositories.Interfaces;
 
 namespace CarRentApp.API.Services
 {

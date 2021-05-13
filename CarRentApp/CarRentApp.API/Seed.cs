@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CarRentApp.Domain;
+using CarRentApp.Domain.EFMapping;
 using CarRentApp.Domain.Enums;
 
 namespace CarRentApp.API

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CarRentApp.Domain.EFMapping;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

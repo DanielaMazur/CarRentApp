@@ -1,10 +1,9 @@
-﻿using CarRentApp.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace CarRentApp.API.Repositories.Interfaces
+namespace CarRentApp.Domain.EFMapping.Repositories.Interfaces
 {
      public interface ICarRepository : IRepository<Car>
      {

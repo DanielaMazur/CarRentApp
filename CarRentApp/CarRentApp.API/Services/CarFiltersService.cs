@@ -1,6 +1,6 @@
-﻿using CarRentApp.API.Repositories.Interfaces;
-using CarRentApp.API.Services.Interfaces;
+﻿using CarRentApp.API.Services.Interfaces;
 using CarRentApp.Domain;
+using CarRentApp.Domain.EFMapping.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

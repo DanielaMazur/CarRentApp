@@ -1,7 +1,6 @@
-﻿using CarRentApp.API.Repositories.Interfaces;
-using CarRentApp.Domain;
+﻿using CarRentApp.Domain.EFMapping.Repositories.Interfaces;
 
-namespace CarRentApp.API.Repositories
+namespace CarRentApp.Domain.EFMapping.Repositories
 {
      public class FuelRepository : Repository<Fuel>, IFuelRepository
      {

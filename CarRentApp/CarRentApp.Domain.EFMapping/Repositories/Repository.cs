@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CarRentApp.API.Infrastructure.Exceptions;
-using CarRentApp.API.Repositories.Interfaces;
-using CarRentApp.Domain;
+using CarRentApp.Domain.EFMapping.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace CarRentApp.API.Repositories
+namespace CarRentApp.Domain.EFMapping.Repositories
 {
      public class Repository<T> : IRepository<T> where T : EntityBase
      {
@@ -49,11 +47,6 @@ namespace CarRentApp.API.Repositories
           {
                var entity = await _dbSet.FindAsync(id);
              
-               if (entity == null)
-               {
-                    throw new NotFoundException($"Object of type {typeof(T)} with id { id } not found");
-               }
-
               _dbSet.Remove(entity);
 
                return entity;
