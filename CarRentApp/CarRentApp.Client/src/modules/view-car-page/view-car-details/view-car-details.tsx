@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Typography, Box, Button } from "@material-ui/core";
 
+import { RentCarModal } from "components";
+
 import { Car } from "types";
 
 import { useStyles } from "./view-car-details.styles";
-import { RentCarModal } from "components";
 
 export type ViewCarDetailsProps = {
   car: Car.Car;

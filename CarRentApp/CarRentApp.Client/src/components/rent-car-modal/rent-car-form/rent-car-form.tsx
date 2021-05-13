@@ -58,12 +58,16 @@ const RentCarForm = (props: RentCarFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(props.handleFormSubmit)}>
+    <form
+      onSubmit={handleSubmit(props.handleFormSubmit)}
+      className={classes.form}
+    >
       <Controller
         name="rangeDate"
         control={control}
         render={({ field: { onChange, value } }) => (
           <DateRange
+            className={classes.dateRange}
             onChange={(item) => handleDatePickerChange(item, onChange)}
             editableDateInputs={true}
             moveRangeOnFirstSelection={false}

@@ -9,6 +9,8 @@ import {
 
 import { RentCarForm } from "./rent-car-form";
 
+import { useStyles } from "./rent-car-modal.styles";
+
 export type RentCarModalProps = {
   carPrice: number;
   isOpen: boolean;
@@ -18,6 +20,8 @@ export type RentCarModalProps = {
 };
 
 const RentCarModal = (props: RentCarModalProps) => {
+  const classes = useStyles();
+
   return (
     <>
       <Dialog
@@ -38,7 +42,7 @@ const RentCarModal = (props: RentCarModalProps) => {
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={props.handleClose} color="primary">
+          <Button onClick={props.handleClose} className={classes.cancelButton}>
             Cancel
           </Button>
         </DialogActions>
