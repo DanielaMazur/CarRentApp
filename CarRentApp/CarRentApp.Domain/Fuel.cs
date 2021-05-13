@@ -1,10 +1,7 @@
-﻿using CarRentApp.Domain.Intefaces;
-
-namespace CarRentApp.Domain
+﻿namespace CarRentApp.Domain
 {
-     public class Fuel : IEntity
+     public class Fuel : EntityBase
      {
-          public int Id { get; set; }
           public string Type { get; set; }
      }
 }

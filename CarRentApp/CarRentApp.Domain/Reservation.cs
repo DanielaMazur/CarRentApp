@@ -1,15 +1,14 @@
-﻿using CarRentApp.Domain.Intefaces;
+﻿using CarRentApp.Domain.Auth;
 using System;
 
 namespace CarRentApp.Domain
 {
-     public class Reservation : IEntity
+     public class Reservation : EntityBase
      {
-          public int Id { get; set; }
           public DateTime StartDate { get; set; }
           public DateTime EndDate { get; set; }
-          public int ClientId { get; set; }
-          public Client Client { get; set; }
+          public int UserId { get; set; }
+          public User User { get; set; }
           public int CarId { get; set; }
           public Car Car { get; set; }
      }

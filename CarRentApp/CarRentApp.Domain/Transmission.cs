@@ -1,10 +1,7 @@
-﻿using CarRentApp.Domain.Intefaces;
-
-namespace CarRentApp.Domain
+﻿namespace CarRentApp.Domain
 {
-     public class Transmission : IEntity
+     public class Transmission : EntityBase
      {
-          public int Id { get; set; }
           public string Type { get; set; }
      }
 }

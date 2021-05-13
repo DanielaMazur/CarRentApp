@@ -1,10 +1,7 @@
-﻿using CarRentApp.Domain.Intefaces;
-
-namespace CarRentApp.Domain
+﻿namespace CarRentApp.Domain
 {
-     public class Photo : IEntity
+     public class Photo : EntityBase
      {
-          public int Id { get; set; }
           public int CarId { get; set; }
           public string Path { get; set; }
           public int Priority { get; set; }

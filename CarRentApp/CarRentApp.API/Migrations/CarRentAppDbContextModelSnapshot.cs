@@ -307,24 +307,6 @@ namespace CarRentApp.API.Migrations
                     b.ToTable("CarBody");
                 });
 
-            modelBuilder.Entity("CarRentApp.Domain.Client", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DriverLicenseId")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DriverLicenseId")
-                        .IsUnique();
-
-                    b.ToTable("Clients");
-                });
-
             modelBuilder.Entity("CarRentApp.Domain.Fuel", b =>
                 {
                     b.Property<int>("Id")
@@ -374,20 +356,20 @@ namespace CarRentApp.API.Migrations
                     b.Property<int>("CarId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CarId");
 
-                    b.HasIndex("ClientId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reservations");
                 });
@@ -478,17 +460,6 @@ namespace CarRentApp.API.Migrations
                     b.Navigation("Transmission");
                 });
 
-            modelBuilder.Entity("CarRentApp.Domain.Client", b =>
-                {
-                    b.HasOne("CarRentApp.Domain.Auth.User", "User")
-                        .WithMany()
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("CarRentApp.Domain.Photo", b =>
                 {
                     b.HasOne("CarRentApp.Domain.Car", null)
@@ -506,26 +477,21 @@ namespace CarRentApp.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarRentApp.Domain.Client", "Client")
-                        .WithMany("Reservations")
-                        .HasForeignKey("ClientId")
+                    b.HasOne("CarRentApp.Domain.Auth.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Car");
 
-                    b.Navigation("Client");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CarRentApp.Domain.Car", b =>
                 {
                     b.Navigation("Photos");
 
-                    b.Navigation("Reservations");
-                });
-
-            modelBuilder.Entity("CarRentApp.Domain.Client", b =>
-                {
                     b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618

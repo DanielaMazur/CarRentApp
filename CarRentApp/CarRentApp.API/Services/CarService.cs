@@ -12,21 +12,22 @@ namespace CarRentApp.API.Services
 {
      public class CarService : ICarService
      {
-          private readonly IRepository _repository;
+          private readonly ICarRepository _carRepository;
 
-          public CarService(IRepository repository)
+          public CarService(ICarRepository carRepository)
           {
-               _repository = repository;
+               _carRepository = carRepository;
           }
 
           public async Task<ICollection<Car>> GetCars()
           {
-               return await _repository.GetAllWithInclude<Car>(c => c.Photos, c => c.Reservations);
+               return await _carRepository.GetCarsWithInclude(c => c.Photos, c => c.Reservations);
           }
 
           public async Task<Car> GetCarById(int id)
           {
-               var car = await _repository.GetByIdWithInclude<Car>(id, c => c.Photos);
+               var cars = await _carRepository.GetCarsWithInclude(c => c.Photos);
+               var car = cars.FirstOrDefault(c => c.Id == id);
 
                if (car == null)
                {
@@ -59,22 +60,22 @@ namespace CarRentApp.API.Services
                     PricePerDay = newCar.PricePerDay,
                };
 
-               _repository.Add(createdCar);
-               await _repository.SaveAll();
+               _carRepository.Add(createdCar);
+               await _carRepository.SaveAll();
 
                return createdCar;
           }
 
           public async Task RemoveCarById(int id)
           {
-               await _repository.Delete<Car>(id);
+               await _carRepository.Delete(id);
 
-               await _repository.SaveAll();
+               await _carRepository.SaveAll();
           }
 
           public async Task<Car> UpdateCar(int id, UpdateCarDto updatedCar)
           {
-               var car = await _repository.GetById<Car>(id);
+               var car = await _carRepository.GetById(id);
 
                if (car == null)
                {
@@ -146,8 +147,8 @@ namespace CarRentApp.API.Services
                     car.NumberOfSeats = updatedCar.NumberOfSeats.Value;
                }
 
-               _repository.Update(car);
-               await _repository.SaveAll();
+               _carRepository.Update(car);
+               await _carRepository.SaveAll();
 
                return car;
           }
@@ -157,7 +158,7 @@ namespace CarRentApp.API.Services
 
                try
                {
-                    var cars = await _repository.GetAll<Car>();
+                    var cars = await _carRepository.GetAll();
                     var carWithTheSameRegistrationNumber = cars.Single(car => car.RegistrationNumber == registrationNumber);
 
                     return true;

@@ -8,26 +8,30 @@ namespace CarRentApp.API.Services
 {
      public class CarFiltersService : ICarFiltersService
      {
-          private readonly IRepository _repository;
+          private readonly ITransmissionRepository _transmissionRepository;
+          private readonly ICarBodyRepository _carBodyRepository;
+          private readonly IFuelRepository _fuelRepository;
 
-          public CarFiltersService(IRepository repository)
+          public CarFiltersService(ITransmissionRepository transmissionRepository, ICarBodyRepository carBodyRepository, IFuelRepository fuelRepository)
           {
-               _repository = repository;
+               _transmissionRepository = transmissionRepository;
+               _carBodyRepository = carBodyRepository;
+               _fuelRepository = fuelRepository;
           }
 
           public async Task<ICollection<Transmission>> GetTransmissions()
           {
-               return await _repository.GetAll<Transmission>();
+               return await _transmissionRepository.GetAll();
           }
 
           public async Task<ICollection<Fuel>> GetFuel()
           {
-               return await _repository.GetAll<Fuel>();
+               return await _fuelRepository.GetAll();
           }
 
           public async Task<ICollection<CarBody>> GetCarBody()
           {
-               return await _repository.GetAll<CarBody>();
+               return await _carBodyRepository.GetAll();
           }
      }
 }

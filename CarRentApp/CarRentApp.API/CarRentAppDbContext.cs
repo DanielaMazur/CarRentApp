@@ -14,7 +14,6 @@ namespace CarRentApp.API
           }
           public DbSet<Car> Cars { get; set; }
           public DbSet<Photo> Photos { get; set; }
-          public DbSet<Client> Clients { get; set; }
           public DbSet<Reservation> Reservations { get; set; }
           public DbSet<Transmission> Transmissions { get; set; }
           public DbSet<Fuel> Fuel { get; set; }
@@ -27,7 +26,6 @@ namespace CarRentApp.API
                modelBuilder.ApplyConfiguration(new CarConfig());
                modelBuilder.ApplyConfiguration(new PhotoConfig());
                modelBuilder.ApplyConfiguration(new ReservationConfig());
-               modelBuilder.ApplyConfiguration(new ClientConfig());
                modelBuilder.ApplyConfiguration(new CarBodyConfig());
                modelBuilder.ApplyConfiguration(new FuelConfig());
                modelBuilder.ApplyConfiguration(new TransmissionConfig());

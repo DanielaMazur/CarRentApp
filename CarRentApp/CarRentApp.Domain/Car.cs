@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using CarRentApp.Domain.Enums;
-using CarRentApp.Domain.Intefaces;
 
 namespace CarRentApp.Domain
 {
-     public class Car : IEntity
+     public class Car : EntityBase
      {
-          public int Id { get ; set; }
           public string Brand { get; set; }
           public string Color { get; set; }
           public FuelEnum FuelId { get; set; }

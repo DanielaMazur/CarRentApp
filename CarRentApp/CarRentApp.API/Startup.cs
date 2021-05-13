@@ -48,10 +48,13 @@ namespace CarRentApp.API
                var authOptions = services.ConfigureAuthOptions(Configuration);
                services.AddJwtAuthentication(authOptions);
 
-               services.AddScoped<IRepository, EFCoreRepository>();
                services.AddScoped<IReservationRepository, ReservationsRepository>();
+               services.AddScoped<IFuelRepository, FuelRepository>();
+               services.AddScoped<ICarBodyRepository, CarBodyRepository>();
+               services.AddScoped<ITransmissionRepository, TransmissionRepository>();
+               services.AddScoped<ICarRepository, CarRepository>();
 
-               services.AddScoped<IAccountService, AccountService>();
+               services.AddScoped<IUserService, UserService>();
                services.AddScoped<ICarService, CarService>();
                services.AddScoped<ICarFiltersService, CarFiltersService>();
                services.AddScoped<IReservationService, ReservationService>();

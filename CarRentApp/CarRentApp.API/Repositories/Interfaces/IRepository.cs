@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CarRentApp.Domain.Intefaces;
+using CarRentApp.Domain;
 
 namespace CarRentApp.API.Repositories.Interfaces
 {
-     public interface IRepository
+     public interface IRepository<T> where T : EntityBase
      {
-          Task<List<TEntity>> GetAll<TEntity>() where TEntity : class, IEntity;
-          Task<TEntity> GetById<TEntity>(int id) where TEntity : class, IEntity;
-          Task<List<TEntity>> GetAllWithInclude<TEntity>(params Expression<Func<TEntity, object>>[] includeProperties) 
-               where TEntity : class, IEntity;
-          Task<TEntity> GetByIdWithInclude<TEntity>(int id, params Expression<Func<TEntity, object>>[] includeProperties) 
-               where TEntity : class, IEntity;
+          Task<List<T>> GetAll();
+          Task<T> GetById(int id);
+          T Add(T entity);
+          T Update(T entity);
+          Task<T> Delete(int id); 
           Task<bool> SaveAll();
-          TEntity Add<TEntity>(TEntity entity) where TEntity : class, IEntity;
-          TEntity Update<TEntity>(TEntity entity) where TEntity : IEntity;
-          Task<TEntity> Delete<TEntity>(int id) where TEntity : class, IEntity;
      }
 }

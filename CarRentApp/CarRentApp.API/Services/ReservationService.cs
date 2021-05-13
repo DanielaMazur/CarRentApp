@@ -13,54 +13,51 @@ namespace CarRentApp.API.Services
      public class ReservationService : IReservationService
      {
           private readonly IHttpContextAccessor _httpContextAccessor;
-          private readonly IRepository _repository;
           private readonly IReservationRepository _reservationRepository;
 
-          public ReservationService(IRepository repository, IHttpContextAccessor httpContextAccessor, IReservationRepository reservationRepository)
+          public ReservationService(IHttpContextAccessor httpContextAccessor, IReservationRepository reservationRepository)
           {
                _httpContextAccessor = httpContextAccessor;
-               _repository = repository;
                _reservationRepository = reservationRepository;
           }
 
           public async Task<ICollection<Reservation>> GetUsersReservations()
           {
-               var client = await GetClient();
+               var clientId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-               var reservations = await _reservationRepository.GetClientReservations(client.Id);
+               var reservations = await _reservationRepository.GetClientReservations(int.Parse(clientId));
 
                return reservations;
           }
 
           public async Task<Reservation> CreateClientReservation(CreateReservationDto newReservation)
           {
-               var client = await GetClient();
+               var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
                var reservation = new Reservation()
                {
-                    ClientId = client.Id,
+                    UserId = int.Parse(userId),
                     CarId = newReservation.CarId,
                     StartDate = newReservation.StartDate,
                     EndDate = newReservation.EndDate
                };
 
-               client.Reservations.Add(reservation);
-
-               await _repository.SaveAll();
+               _reservationRepository.Add(reservation);
+               await _reservationRepository.SaveAll();
 
                return reservation;
           }
 
           public async Task DeleteReservation(int id)
           {
-               await _repository.Delete<Reservation>(id);
+               await _reservationRepository.Delete(id);
 
-               await _repository.SaveAll();
+               await _reservationRepository.SaveAll();
           }
 
           public async Task<Reservation> UpdateReservation(int id, UpdateReservationDto updatedReservation)
           {
-               var reservation = await _repository.GetById<Reservation>(id);
+               var reservation = await _reservationRepository.GetById(id);
 
                if (reservation == null)
                {
@@ -82,32 +79,13 @@ namespace CarRentApp.API.Services
                     throw new InvalidInputException("Date interval is not valid!");
                }
 
-               _repository.Update(reservation);
-               await _repository.SaveAll();
+               _reservationRepository.Update(reservation);
+               await _reservationRepository.SaveAll();
 
                return reservation;
           }
 
-          public async Task<Client> GetClient()
-          {
-               var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-               if (userId == null)
-               {
-                    throw new NotFoundException("A user with such Id was not found!");
-               }
-
-               var client = await _repository.GetByIdWithInclude<Client>(int.Parse(userId), c => c.Reservations);
-
-               if (client == null)
-               {
-                    throw new NotFoundException("User should be client in order to have reservations!");
-               }
-
-               return client;
-          }
-
-          public async Task<bool> IsReservationIntervalValid(Reservation reservation)
+          private async Task<bool> IsReservationIntervalValid(Reservation reservation)
           {
                if(reservation.StartDate > reservation.EndDate)
                {
@@ -116,9 +94,9 @@ namespace CarRentApp.API.Services
 
                var carId = reservation.CarId;
 
-               var car = await _repository.GetByIdWithInclude<Car>(carId, c => c.Reservations);
+               var carsReservations = await _reservationRepository.GetCarReservations(carId);
 
-               foreach(var res in car.Reservations)
+               foreach(var res in carsReservations)
                {
                     if(res.StartDate == reservation.StartDate && res.EndDate == reservation.EndDate)
                     {
