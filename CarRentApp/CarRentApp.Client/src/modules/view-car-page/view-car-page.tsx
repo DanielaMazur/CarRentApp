@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -6,11 +6,11 @@ import "slick-carousel/slick/slick-theme.css";
 import { Grid, Container, Button } from "@material-ui/core";
 
 import { CarService } from "services";
-import { useCarRentAppContext } from "context/useCarRentAppContext";
+import { useFetch } from "hooks/useFetch";
+
+import { LoadingPage } from "components/loading-page";
 
 import { ViewCarDetails } from "./view-car-details";
-
-import { Car } from "types";
 
 import { useStyles } from "./view-car-page.styles";
 
@@ -28,45 +28,34 @@ const SliderSettings = {
 const ViewCarPage = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [currentCar, setCurrentCar] = useState<Car.Car | null>(null);
+
+  const {
+    data: currentCar,
+    fetch: fetchCar,
+    isLoading,
+  } = useFetch(CarService.GetCar);
 
   const {
     params: { id: carId },
   } = useRouteMatch<{ id: string }>();
 
-  const {
-    cars,
-    handlers: { addSnackbar },
-  } = useCarRentAppContext();
-
-  const fetchCarData = useCallback(async () => {
-    const car = cars.find((car) => car.id === Number(carId));
-
-    if (car != null) {
-      setCurrentCar(car);
-
+  useEffect(() => {
+    if (isNaN(Number(carId))) {
       return;
     }
 
-    try {
-      const fetchedCar = await CarService.GetCar(Number(carId));
+    fetchCar(Number(carId));
 
-      setCurrentCar(fetchedCar);
-    } catch (error) {
-      addSnackbar({
-        status: "error",
-        message: error.message,
-      });
-    }
-  }, [addSnackbar, carId, cars]);
-
-  useEffect(() => {
-    fetchCarData();
-  }, [fetchCarData]);
+    //eslint-disable-next-line
+  }, [carId]);
 
   const handleGoBackToCars = () => {
     history.push("/cars");
   };
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   if (currentCar == null) {
     return <p>The car was not found</p>;

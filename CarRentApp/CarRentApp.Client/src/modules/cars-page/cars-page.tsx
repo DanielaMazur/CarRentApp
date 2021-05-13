@@ -6,6 +6,8 @@ import { useCarRentAppContext } from "context/useCarRentAppContext";
 import { CarService } from "services";
 import { useFetch } from "hooks/useFetch";
 
+import { LoadingPage } from "components/loading-page";
+
 import { CarCard } from "./car-card";
 
 import { useStyles } from "./cars-page.styles";
@@ -35,7 +37,7 @@ const CarsPage = () => {
   }, []);
 
   if (isCarsLoading) {
-    return <p>Loading...</p>;
+    return <LoadingPage />;
   }
 
   return (
