@@ -28,6 +28,7 @@ namespace CarRentApp.Domain.EFMapping
                modelBuilder.ApplyConfiguration(new CarBodyConfig());
                modelBuilder.ApplyConfiguration(new FuelConfig());
                modelBuilder.ApplyConfiguration(new TransmissionConfig());
+               modelBuilder.ApplyConfiguration(new UserConfig());
 
                ApplyIdentityMapConfiguration(modelBuilder);
           }

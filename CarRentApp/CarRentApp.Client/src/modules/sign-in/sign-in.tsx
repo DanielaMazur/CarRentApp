@@ -1,23 +1,26 @@
 import { useHistory } from "react-router";
+import { useEffect } from "react";
 
-import { AccountService } from "services";
+import { UserService } from "services";
 import { useCarRentAppContext } from "context/useCarRentAppContext";
-import { login } from "services/authProvider";
+import { login, useAuth } from "services/authProvider";
 
 import { Authentication, Form } from "components";
 
-import { Account } from "types";
+import { User } from "types";
 
 const SignIn = () => {
   const history = useHistory();
+
+  const [isUserAuth] = useAuth();
 
   const {
     handlers: { addSnackbar },
   } = useCarRentAppContext();
 
-  const handleSignIn = async (credentials: Account.SignInAccount) => {
+  const handleSignIn = async (credentials: User.SignInUser) => {
     try {
-      const { accessToken } = await AccountService.SignIn(credentials);
+      const { accessToken } = await UserService.SignIn(credentials);
 
       if (accessToken == null) {
         throw Error("Sign In Failed!");
@@ -35,6 +38,14 @@ const SignIn = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (isUserAuth) {
+      history.push("/");
+    }
+
+    //eslint-disable-next-line
+  }, []);
 
   return (
     <Authentication isSignIn>

@@ -3,7 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Account } from "types";
+import { User } from "types";
 
 import { useStyles } from "./sign-up-form.styles";
 
@@ -15,13 +15,13 @@ const SignUpFormSchema = yup.object().shape({
 });
 
 export type SignUpFormProps = {
-  handleFormSubmit: (credentials: Account.Account) => void;
+  handleFormSubmit: (credentials: User.User) => void;
 };
 
 const SignUpForm = (props: SignUpFormProps) => {
   const classes = useStyles();
 
-  const { handleSubmit, control } = useForm<Account.Account>({
+  const { handleSubmit, control } = useForm<User.User>({
     resolver: yupResolver(SignUpFormSchema),
     defaultValues: {
       firstName: "",

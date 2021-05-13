@@ -1,9 +1,9 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace CarRentApp.API.Models.Account
+namespace CarRentApp.API.Models.User
 {
-     public class AccountLoginModel
+     public class UserLoginModel
      {
           [Required]
           public string Email { get; set; }

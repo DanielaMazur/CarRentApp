@@ -4,9 +4,9 @@ using CarRentApp.Domain;
 
 namespace CarRentApp.API.Profiles
 {
-     public class ReservationProfiler : Profile
+     public class ReservationProfile : Profile
      {
-          public ReservationProfiler()
+          public ReservationProfile()
           {
                CreateMap<Reservation, ReservationModel>();
           }

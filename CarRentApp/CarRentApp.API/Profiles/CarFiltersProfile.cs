@@ -4,9 +4,9 @@ using CarRentApp.Domain;
 
 namespace CarRentApp.API.Profiles
 {
-     public class CarFiltersProfiler : Profile
+     public class CarFiltersProfile : Profile
      {
-          public CarFiltersProfiler()
+          public CarFiltersProfile()
           {
                CreateMap<Transmission, TransmissionModel>();
                CreateMap<Fuel, FuelModel>();

@@ -1,7 +1,7 @@
 import { ReactNode, useCallback, useEffect } from "react";
 
 import { useCarRentAppContext } from "context/useCarRentAppContext";
-import { AccountService } from "services";
+import { UserService } from "services";
 import { useAuth } from "services/authProvider";
 
 import { Navbar, Snackbar, Footer } from "components";
@@ -16,7 +16,7 @@ const ApplicationContainer = (props: { children: ReactNode }) => {
 
   const fetchUser = useCallback(async () => {
     try {
-      const user = await AccountService.GetCurrentAccount();
+      const user = await UserService.GetCurrentUser();
 
       setUser(user);
     } catch (error) {

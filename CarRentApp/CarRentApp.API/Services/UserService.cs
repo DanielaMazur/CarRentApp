@@ -3,7 +3,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using CarRentApp.API.Models.Account;
 using CarRentApp.API.Infrastructure.Configurations;
 using CarRentApp.API.Infrastructure.Exceptions;
 using CarRentApp.API.Services.Interfaces;
@@ -12,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using CarRentApp.API.Models.User;
 
 namespace CarRentApp.API.Services
 {
@@ -30,7 +30,7 @@ namespace CarRentApp.API.Services
                _signInManager = signInManager;
           }
 
-          public async Task<string> Login(AccountLoginModel userData)
+          public async Task<string> Login(UserLoginModel userData)
           {
                var checkingPasswordResult = await _signInManager.PasswordSignInAsync(userData.Email, userData.Password, false, false);
 
@@ -70,14 +70,17 @@ namespace CarRentApp.API.Services
                return null;
           }
 
-          public async Task SignUp(AccountLoginModel userForLoginDto)
+          public async Task SignUp(UserRegistrerModel userModel)
           {
-               var user = new User { Email = userForLoginDto.Email, UserName = userForLoginDto.Email };
-               var result = await _userManager.CreateAsync(user, userForLoginDto.Password);
+               var user = new User { FirstName = userModel.FirstName, LastName= userModel.LastName, Email = userModel.Email, UserName = userModel.Email };
+               var result = await _userManager.CreateAsync(user, userModel.Password);
 
                if (result.Succeeded)
                {
-                    await _userManager.AddClaimsAsync(user, new Claim[] { new Claim(ClaimTypes.Role, "Client"), new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()) });
+                    await _userManager.AddClaimsAsync(user, new Claim[] { new Claim(ClaimTypes.Role, "Client"), 
+                                                            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()), 
+                                                            new Claim("FirstName", userModel.FirstName ), 
+                                                            new Claim("LastName", userModel.LastName) });
                     return;
                }
 
@@ -89,12 +92,14 @@ namespace CarRentApp.API.Services
                throw new SignUpFailException("Signup faild!");
           }
 
-          public AccountModel GetUserWithRole()
+          public UserModel GetUserWithRole()
           {
                var email = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
                var role = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role)?.Value;
+               var firstName = _httpContextAccessor.HttpContext.User.FindFirst("FirstName")?.Value;
+               var lastName = _httpContextAccessor.HttpContext.User.FindFirst("LastName")?.Value;
 
-               return new AccountModel() { Email = email, Role = role };
+               return new UserModel() { Email = email, Role = role, FirstName = firstName, LastName = lastName };
           }
      }
 }

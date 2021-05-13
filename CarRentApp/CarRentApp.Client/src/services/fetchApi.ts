@@ -3,7 +3,7 @@ const fetchApi = <TResponse>(
   config: RequestInit = {}
 ): Promise<TResponse> =>
   fetch(`https://localhost:44359/api${url}`, config)
-    .then((response) => response.json())
-    .then((data) => data);
+    .then((response) => response.text())
+    .then((data) => (data ? JSON.parse(data) : {}));
 
 export { fetchApi };

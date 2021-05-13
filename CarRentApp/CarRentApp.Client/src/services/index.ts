@@ -1,4 +1,4 @@
 export * from "./cars.service";
 export * from "./unsplash.service";
-export * from "./account.service";
+export * from "./user.service";
 export * from "./reservations.service";

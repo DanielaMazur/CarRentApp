@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using CarRentApp.API.Models.Account;
 using CarRentApp.API.Services.Interfaces;
 using CarRentApp.API.Infrastructure.Exceptions;
 using AutoMapper;
+using CarRentApp.API.Models.User;
 
 namespace CarRentApp.API.Controllers
 {
@@ -24,7 +24,7 @@ namespace CarRentApp.API.Controllers
           [AllowAnonymous]
           [ApiExceptionFilter]
           [HttpPost("login")]
-          public async Task<IActionResult> Login(AccountLoginModel userForLoginDto)
+          public async Task<IActionResult> Login(UserLoginModel userForLoginDto)
           {
                var accessToken = await _userService.Login(userForLoginDto);
 
@@ -39,9 +39,9 @@ namespace CarRentApp.API.Controllers
           [AllowAnonymous]
           [ApiExceptionFilter]
           [HttpPost("register")]
-          public async Task<IActionResult> Register(AccountLoginModel userForLoginDto)
+          public async Task<IActionResult> Register(UserRegistrerModel userModel)
           {
-               await _userService.SignUp(userForLoginDto);
+               await _userService.SignUp(userModel);
 
                return Ok();
           }
@@ -52,7 +52,7 @@ namespace CarRentApp.API.Controllers
           {
                var account = _userService.GetUserWithRole();
 
-               var accountDto = _mapper.Map<AccountModel>(account);
+               var accountDto = _mapper.Map<UserModel>(account);
 
                return Ok(accountDto);
           }
