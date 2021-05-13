@@ -1,5 +1,4 @@
-﻿
-using CarRentApp.API.Repositories.Interfaces;
+﻿using CarRentApp.API.Repositories.Interfaces;
 using CarRentApp.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

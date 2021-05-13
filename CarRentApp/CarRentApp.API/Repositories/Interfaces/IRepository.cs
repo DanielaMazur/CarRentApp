@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using CarRentApp.API.Infrastructure.Models;
 using CarRentApp.Domain.Intefaces;
 
 namespace CarRentApp.API.Repositories.Interfaces
@@ -19,7 +18,5 @@ namespace CarRentApp.API.Repositories.Interfaces
           TEntity Add<TEntity>(TEntity entity) where TEntity : class, IEntity;
           TEntity Update<TEntity>(TEntity entity) where TEntity : IEntity;
           Task<TEntity> Delete<TEntity>(int id) where TEntity : class, IEntity;
-          Task<PaginatedResult<TDto>> GetPagedData<TEntity, TDto>(PaginatedRequest pagedRequest)
-               where TEntity : IEntity where TDto : class;
      }
 }

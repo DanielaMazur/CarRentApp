@@ -22,7 +22,6 @@ const VEHICLE_TYPES = [
     icon: Sedan,
     name: "Sedan",
   },
-
   {
     icon: Suv,
     name: "Suv",

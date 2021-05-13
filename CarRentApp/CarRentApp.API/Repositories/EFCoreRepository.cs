@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CarRentApp.API.Infrastructure.Exceptions;
-using CarRentApp.API.Infrastructure.Models;
 using CarRentApp.API.Repositories.Interfaces;
 using CarRentApp.Domain.Intefaces;
 using Microsoft.EntityFrameworkCore;
@@ -88,13 +87,6 @@ namespace CarRentApp.API.Repositories
                     entities = entities.Include(includeProperty);
                }
                return entities;
-          }
-
-          public Task<PaginatedResult<TDto>> GetPagedData<TEntity, TDto>(PaginatedRequest pagedRequest)
-               where TEntity : IEntity
-               where TDto : class
-          {
-               throw new NotImplementedException();
           }
      }
 }
