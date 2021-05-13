@@ -1,4 +1,12 @@
-import { AppBar, Toolbar, Button, Typography, Box } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Typography,
+  Box,
+  IconButton,
+} from "@material-ui/core";
+import DateRangeIcon from "@material-ui/icons/DateRange";
 import { useCarRentAppContext } from "context/useCarRentAppContext";
 import { useHistory } from "react-router";
 
@@ -15,6 +23,8 @@ const Navbar = () => {
   const [isAuthenticated] = useAuth();
   const { user } = useCarRentAppContext();
 
+  const handleReservationsClick = () => history.push("/reservations");
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -28,7 +38,16 @@ const Navbar = () => {
 
         <Box ml="auto">
           {isAuthenticated ? (
-            <Avatar name={user?.email || ""} />
+            <Box display="flex" alignItems="center">
+              <IconButton
+                aria-label="reservations"
+                className={classes.reservationsButton}
+                onClick={handleReservationsClick}
+              >
+                <DateRangeIcon className={classes.reservationsIcon} />
+              </IconButton>
+              <Avatar name={user?.email || ""} />
+            </Box>
           ) : (
             <Button color="secondary" onClick={() => history.push("/sign-in")}>
               <b>Login</b>

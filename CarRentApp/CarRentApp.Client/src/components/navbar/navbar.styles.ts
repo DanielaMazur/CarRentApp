@@ -6,6 +6,12 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     cursor: "pointer",
   },
+  reservationsIcon: {
+    color: "white",
+  },
+  reservationsButton: {
+    marginRight: "10px",
+  },
 });
 
 export { useStyles };
