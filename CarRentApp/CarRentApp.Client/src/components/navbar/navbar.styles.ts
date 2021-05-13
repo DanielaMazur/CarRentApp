@@ -6,11 +6,11 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     cursor: "pointer",
   },
-  reservationsIcon: {
+  navbarIcon: {
     color: "white",
   },
-  reservationsButton: {
-    marginRight: "10px",
+  navbarButton: {
+    margin: "0 10px",
   },
 });
 

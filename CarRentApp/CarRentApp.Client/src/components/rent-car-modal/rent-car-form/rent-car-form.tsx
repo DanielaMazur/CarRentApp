@@ -72,6 +72,7 @@ const RentCarForm = (props: RentCarFormProps) => {
         control={control}
         render={({ field: { onChange, value } }) => (
           <DateRange
+            minDate={new Date()}
             className={classes.dateRange}
             onChange={(item) => handleDatePickerChange(item, onChange)}
             ranges={[value]}
@@ -79,8 +80,8 @@ const RentCarForm = (props: RentCarFormProps) => {
         )}
       />
 
-      <Typography variant="h5" className={classes.totalPrice}>
-        Rental Price: {totalPrice}
+      <Typography variant="h5" className={classes.totalPrice} color="error">
+        Rental Price:<b> {totalPrice}</b>
       </Typography>
 
       <Button type="submit" fullWidth variant="contained" color="primary">

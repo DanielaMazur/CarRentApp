@@ -7,10 +7,11 @@ import {
   IconButton,
 } from "@material-ui/core";
 import DateRangeIcon from "@material-ui/icons/DateRange";
-import { useCarRentAppContext } from "context/useCarRentAppContext";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { useHistory } from "react-router";
 
-import { useAuth } from "services/authProvider";
+import { useCarRentAppContext } from "context/useCarRentAppContext";
+import { useAuth, logout } from "services/authProvider";
 
 import { Avatar } from "components";
 
@@ -41,12 +42,19 @@ const Navbar = () => {
             <Box display="flex" alignItems="center">
               <IconButton
                 aria-label="reservations"
-                className={classes.reservationsButton}
+                className={classes.navbarButton}
                 onClick={handleReservationsClick}
               >
-                <DateRangeIcon className={classes.reservationsIcon} />
+                <DateRangeIcon className={classes.navbarIcon} />
               </IconButton>
               <Avatar name={user?.email || ""} />
+              <IconButton
+                aria-label="log-out"
+                onClick={() => logout()}
+                className={classes.navbarButton}
+              >
+                <ExitToAppIcon className={classes.navbarIcon} />
+              </IconButton>
             </Box>
           ) : (
             <Button color="secondary" onClick={() => history.push("/sign-in")}>
