@@ -42,6 +42,11 @@ namespace CarRentApp.API.Services
                     EndDate = newReservation.EndDate
                };
 
+               if (!await IsReservationIntervalValid(reservation))
+               {
+                    throw new InvalidInputException("Date interval is not valid!");
+               }
+
                _reservationRepository.Add(reservation);
                await _reservationRepository.SaveAll();
 

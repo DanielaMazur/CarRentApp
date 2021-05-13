@@ -52,8 +52,8 @@ const ViewCarDetails = (props: ViewCarDetailsProps) => {
         endDate: utcEndDate,
       });
 
-      if (reservation == null) {
-        throw new Error("The Reservation was not saved!");
+      if (typeof reservation == "string") {
+        throw new Error(reservation);
       }
 
       addSnackbar({
