@@ -7,8 +7,11 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { Button, Typography } from "@material-ui/core";
 
-import { useStyles } from "./rent-car-form.styles";
+import { getReservationPrice } from "utils/reservation-price.utils";
+
 import { Reservation } from "types";
+
+import { useStyles } from "./rent-car-form.styles";
 
 const RentCarFormSchema = yup.object().shape({
   rangeDate: yup.object({
@@ -49,11 +52,9 @@ const RentCarForm = (props: RentCarFormProps) => {
       endDate,
     };
 
-    const differenceInTime =
-      newRange.endDate.getTime() - newRange.startDate.getTime();
-    const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-
-    setTotalPrice(props.carPrice * differenceInDays);
+    setTotalPrice(
+      getReservationPrice(newRange.startDate, newRange.endDate, props.carPrice)
+    );
 
     onChange(newRange);
   };

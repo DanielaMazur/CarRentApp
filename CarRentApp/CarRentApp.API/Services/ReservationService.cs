@@ -14,18 +14,22 @@ namespace CarRentApp.API.Services
      {
           private readonly IHttpContextAccessor _httpContextAccessor;
           private readonly IRepository _repository;
+          private readonly IReservationRepository _reservationRepository;
 
-          public ReservationService(IRepository repository, IHttpContextAccessor httpContextAccessor)
+          public ReservationService(IRepository repository, IHttpContextAccessor httpContextAccessor, IReservationRepository reservationRepository)
           {
                _httpContextAccessor = httpContextAccessor;
                _repository = repository;
+               _reservationRepository = reservationRepository;
           }
 
           public async Task<ICollection<Reservation>> GetUsersReservations()
           {
                var client = await GetClient();
 
-               return client.Reservations;
+               var reservations = await _reservationRepository.GetClientReservations(client.Id);
+
+               return reservations;
           }
 
           public async Task<Reservation> CreateClientReservation(CreateReservationDto newReservation)

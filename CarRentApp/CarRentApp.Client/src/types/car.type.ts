@@ -16,6 +16,14 @@ export declare module Car {
     photos: Photo[];
   };
 
+  export type CarPreview = {
+    id: number;
+    brand: string;
+    model: string;
+    pricePerDay: number;
+    photos: Photo[];
+  };
+
   export type Photo = {
     carId: number;
     path: string;

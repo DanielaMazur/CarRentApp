@@ -17,6 +17,7 @@ namespace CarRentApp.API.Profiles
                     opt => opt.MapFrom(source => Enum.GetName(typeof(FuelEnum), source.FuelId)))
                     .ForMember(destination => destination.Body,
                     opt => opt.MapFrom(source => Enum.GetName(typeof(CarBodyEnum), source.CarBodyId)));
+               CreateMap<Car, CarPreviewDto>();
           }
      }
 }

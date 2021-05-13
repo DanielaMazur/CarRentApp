@@ -1,9 +1,11 @@
 import { useEffect } from "react";
+import { Grid, Container } from "@material-ui/core";
 
 import { ReservationsService } from "services";
 import { useFetch } from "hooks/useFetch";
 
 import { LoadingPage } from "components/loading-page";
+import { ReservationCard } from "./reservation-card";
 
 import { Reservation } from "types";
 
@@ -25,11 +27,15 @@ const Reservations = () => {
   }
 
   return (
-    <div>
-      {reservations?.map((res) => (
-        <p>{res.endDate}</p>
-      ))}
-    </div>
+    <Container maxWidth="lg">
+      <Grid container spacing={4}>
+        {reservations?.map((res) => (
+          <Grid key={res.id} item md={4} sm={6} xs={12}>
+            <ReservationCard reservation={res} />
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   );
 };
 

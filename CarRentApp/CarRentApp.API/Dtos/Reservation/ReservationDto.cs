@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarRentApp.API.Dtos.Car;
+using System;
 
 namespace CarRentApp.API.Dtos.Reservation
 {
@@ -7,6 +8,6 @@ namespace CarRentApp.API.Dtos.Reservation
           public int Id { get; set; }
           public DateTime StartDate { get; set; }
           public DateTime EndDate { get; set; }
-          public int CarId { get; set; }
+          public CarPreviewDto Car { get; set; }
      }
 }
