@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Typography, Box, Button } from "@material-ui/core";
 
+import { ReservationsService } from "services";
+
+import { useCarRentAppContext } from "context/useCarRentAppContext";
 import { RentCarModal } from "components";
 
-import { Car } from "types";
+import { Car, Reservation } from "types";
 
 import { useStyles } from "./view-car-details.styles";
 
@@ -15,6 +18,10 @@ const ViewCarDetails = (props: ViewCarDetailsProps) => {
   const classes = useStyles();
   const [isRentModalOpen, setRentModalOpen] = useState(false);
 
+  const {
+    handlers: { addSnackbar },
+  } = useCarRentAppContext();
+
   const handleOpenRentModal = () => {
     setRentModalOpen(true);
   };
@@ -23,7 +30,30 @@ const ViewCarDetails = (props: ViewCarDetailsProps) => {
     setRentModalOpen(false);
   };
 
-  const handleConfirmRent = () => {};
+  const handleConfirmRent = async (
+    rentDetails: Reservation.ReservationForm
+  ) => {
+    try {
+      const reservation = await ReservationsService.PostReservation({
+        carId: props.car.id,
+        ...rentDetails,
+      });
+
+      if (reservation == null) {
+        throw new Error("The Reservation was not saved!");
+      }
+
+      addSnackbar({
+        status: "success",
+        message: "The reservation was successfully saved!",
+      });
+    } catch (error) {
+      addSnackbar({
+        status: "error",
+        message: error.message,
+      });
+    }
+  };
 
   return (
     <>

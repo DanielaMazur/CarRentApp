@@ -9,6 +9,8 @@ import {
 
 import { RentCarForm } from "./rent-car-form";
 
+import { Reservation } from "types";
+
 import { useStyles } from "./rent-car-modal.styles";
 
 export type RentCarModalProps = {
@@ -16,7 +18,7 @@ export type RentCarModalProps = {
   isOpen: boolean;
 
   handleClose: () => void;
-  handleConfirm: (formValues: any) => void;
+  handleConfirm: (formValues: Reservation.ReservationForm) => void;
 };
 
 const RentCarModal = (props: RentCarModalProps) => {

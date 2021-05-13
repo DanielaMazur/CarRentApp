@@ -8,17 +8,18 @@ import "react-date-range/dist/theme/default.css";
 import { Button, Typography } from "@material-ui/core";
 
 import { useStyles } from "./rent-car-form.styles";
+import { Reservation } from "types";
 
 const RentCarFormSchema = yup.object().shape({
   rangeDate: yup.object({
-    startDate: yup.array().of(yup.date().required()),
-    endDate: yup.array().of(yup.date().required()),
+    startDate: yup.date().required(),
+    endDate: yup.date().required(),
   }),
 });
 
 export type RentCarFormProps = {
   carPrice: number;
-  handleFormSubmit: (formValues: any) => void;
+  handleFormSubmit: (formValues: Reservation.ReservationForm) => void;
 };
 
 const RentCarForm = (props: RentCarFormProps) => {
@@ -57,11 +58,14 @@ const RentCarForm = (props: RentCarFormProps) => {
     onChange(newRange);
   };
 
+  const onSubmit = (formValues: { rangeDate: Reservation.ReservationForm }) => {
+    const reservationRange = formValues.rangeDate;
+
+    props.handleFormSubmit(reservationRange);
+  };
+
   return (
-    <form
-      onSubmit={handleSubmit(props.handleFormSubmit)}
-      className={classes.form}
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
       <Controller
         name="rangeDate"
         control={control}
@@ -69,8 +73,6 @@ const RentCarForm = (props: RentCarFormProps) => {
           <DateRange
             className={classes.dateRange}
             onChange={(item) => handleDatePickerChange(item, onChange)}
-            editableDateInputs={true}
-            moveRangeOnFirstSelection={false}
             ranges={[value]}
           />
         )}
