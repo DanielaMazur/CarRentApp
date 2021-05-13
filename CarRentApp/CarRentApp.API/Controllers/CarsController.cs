@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using CarRentApp.API.Dtos.Car;
+using CarRentApp.API.Models.Car;
 using CarRentApp.API.Infrastructure.Exceptions;
 using CarRentApp.API.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -28,7 +28,7 @@ namespace CarRentApp.API.Controllers
           {
                var cars = await _carService.GetCars();
 
-               var carsDto = _mapper.Map<List<CarDto>>(cars);
+               var carsDto = _mapper.Map<List<CarModel>>(cars);
 
                return Ok(carsDto);
           }
@@ -40,18 +40,18 @@ namespace CarRentApp.API.Controllers
           {
                var car = await _carService.GetCarById(id);
 
-               var carDto = _mapper.Map<CarDto>(car);
+               var carDto = _mapper.Map<CarModel>(car);
 
                return Ok(carDto);
           }
 
           [HttpPost]
           [ApiExceptionFilter]
-          public async Task<IActionResult> Post(CreateCarDto newCar)
+          public async Task<IActionResult> Post(CreateCarModel newCar)
           {
                var createdCar = await _carService.AddNewCar(newCar);
 
-               var carDto = _mapper.Map<CarDto>(createdCar);
+               var carDto = _mapper.Map<CarModel>(createdCar);
                
                return Ok(carDto);
           }
@@ -59,11 +59,11 @@ namespace CarRentApp.API.Controllers
 
           [HttpPatch("{id}")]
           [ApiExceptionFilter]
-          public async Task<IActionResult> Patch(int id, [FromBody] UpdateCarDto updatedCar)
+          public async Task<IActionResult> Patch(int id, [FromBody] UpdateCarModel updatedCar)
           {
                var car = await _carService.UpdateCar(id, updatedCar);
 
-               var carDto = _mapper.Map<CarDto>(car);
+               var carDto = _mapper.Map<CarModel>(car);
 
                return Ok(carDto);
           }

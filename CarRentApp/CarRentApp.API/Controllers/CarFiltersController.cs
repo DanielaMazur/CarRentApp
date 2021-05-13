@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CarRentApp.API.Dtos.CarFilters;
+using CarRentApp.API.Models.CarFilters;
 using CarRentApp.API.Services.Interfaces;
 using CarRentApp.Domain;
 using Microsoft.AspNetCore.Authorization;
@@ -30,7 +30,7 @@ namespace CarRentApp.API.Controllers
                var fuel = await _carFiltersService.GetFuel();
                var carBody = await _carFiltersService.GetCarBody();
 
-               var filtersDto = _mapper.Map<CarFiltersDto>(new CarFilters(){ Transmission = transmissions, Fuel = fuel, CarBody = carBody });
+               var filtersDto = _mapper.Map<CarFiltersModel>(new CarFilters(){ Transmission = transmissions, Fuel = fuel, CarBody = carBody });
 
                return Ok(filtersDto);
           }
@@ -40,7 +40,7 @@ namespace CarRentApp.API.Controllers
           {
                var transmissions = await _carFiltersService.GetTransmissions();
 
-               var transmissionsDto = _mapper.Map<ICollection<TransmissionDto>>(transmissions);
+               var transmissionsDto = _mapper.Map<ICollection<TransmissionModel>>(transmissions);
 
                return Ok(transmissionsDto);
           }
@@ -50,7 +50,7 @@ namespace CarRentApp.API.Controllers
           {
                var fuel = await _carFiltersService.GetFuel();
 
-               var fuelDto = _mapper.Map<ICollection<FuelDto>>(fuel);
+               var fuelDto = _mapper.Map<ICollection<FuelModel>>(fuel);
 
                return Ok(fuelDto);
           }
@@ -60,7 +60,7 @@ namespace CarRentApp.API.Controllers
           {
                var carBody = await _carFiltersService.GetCarBody();
 
-               var carBodyDto = _mapper.Map<ICollection<CarBodyDto>>(carBody);
+               var carBodyDto = _mapper.Map<ICollection<CarBodyModel>>(carBody);
 
                return Ok(carBodyDto);
           }

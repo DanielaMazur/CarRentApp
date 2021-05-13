@@ -1,4 +1,4 @@
-﻿using CarRentApp.API.Dtos.Reservation;
+﻿using CarRentApp.API.Models.Reservation;
 using CarRentApp.API.Infrastructure.Exceptions;
 using CarRentApp.API.Repositories.Interfaces;
 using CarRentApp.API.Services.Interfaces;
@@ -30,7 +30,7 @@ namespace CarRentApp.API.Services
                return reservations;
           }
 
-          public async Task<Reservation> CreateClientReservation(CreateReservationDto newReservation)
+          public async Task<Reservation> CreateClientReservation(CreateReservationModel newReservation)
           {
                var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -55,7 +55,7 @@ namespace CarRentApp.API.Services
                await _reservationRepository.SaveAll();
           }
 
-          public async Task<Reservation> UpdateReservation(int id, UpdateReservationDto updatedReservation)
+          public async Task<Reservation> UpdateReservation(int id, UpdateReservationModel updatedReservation)
           {
                var reservation = await _reservationRepository.GetById(id);
 

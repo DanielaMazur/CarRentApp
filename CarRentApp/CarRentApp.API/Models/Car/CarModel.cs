@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using CarRentApp.API.Dtos.Photo;
-using CarRentApp.API.Dtos.Reservation;
+using CarRentApp.API.Models.Photo;
+using CarRentApp.API.Models.Reservation;
 
-namespace CarRentApp.API.Dtos.Car
+namespace CarRentApp.API.Models.Car
 {
-     public class CarDto
+     public class CarModel
      {
           public int Id { get; set; }
           public string Brand { get; set; }
@@ -19,8 +19,8 @@ namespace CarRentApp.API.Dtos.Car
           public byte NumberOfSeats { get; set; }
           public byte NumberOfDoors { get; set; }
           public bool AirCoditioning { get; set; }
-          public ICollection<PhotoDto> Photos { get; set; }
+          public ICollection<PhotoModel> Photos { get; set; }
           public decimal PricePerDay { get; set; }
-          public ICollection<ReservationDto> Reservations { get; set; }
+          public ICollection<ReservationModel> Reservations { get; set; }
      }
 }

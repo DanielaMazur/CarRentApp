@@ -1,4 +1,4 @@
-﻿using CarRentApp.API.Dtos.Reservation;
+﻿using CarRentApp.API.Models.Reservation;
 using CarRentApp.Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,8 +8,8 @@ namespace CarRentApp.API.Services.Interfaces
      public interface IReservationService
      {
           Task<ICollection<Reservation>> GetUsersReservations();
-          Task<Reservation> CreateClientReservation(CreateReservationDto newReservation);
+          Task<Reservation> CreateClientReservation(CreateReservationModel newReservation);
           Task DeleteReservation(int id);
-          Task<Reservation> UpdateReservation(int id, UpdateReservationDto updatedReservation);
+          Task<Reservation> UpdateReservation(int id, UpdateReservationModel updatedReservation);
      }
 }

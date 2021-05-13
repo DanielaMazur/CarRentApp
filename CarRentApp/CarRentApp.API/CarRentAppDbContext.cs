@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using CarRentApp.Domain.EFMapping.Schemas;
 using CarRentApp.Domain.EFMapping;
 using CarRentApp.Domain;
+using CarRentApp.Domain.EFMapping.Configs;
 
 namespace CarRentApp.API
 {

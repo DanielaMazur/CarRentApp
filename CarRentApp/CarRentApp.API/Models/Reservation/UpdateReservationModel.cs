@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace CarRentApp.API.Dtos.Reservation
+namespace CarRentApp.API.Models.Reservation
 {
-     public class UpdateReservationDto
+     public class UpdateReservationModel
      {
           public DateTime? StartDate { get; set; }
           public DateTime? EndDate { get; set; }

@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using CarRentApp.API.Dtos.Account;
+using CarRentApp.API.Models.Account;
 using CarRentApp.API.Infrastructure.Configurations;
 using CarRentApp.API.Infrastructure.Exceptions;
 using CarRentApp.API.Services.Interfaces;
-using CarRentApp.Domain;
 using CarRentApp.Domain.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -32,7 +30,7 @@ namespace CarRentApp.API.Services
                _signInManager = signInManager;
           }
 
-          public async Task<string> Login(AccountLoginDto userData)
+          public async Task<string> Login(AccountLoginModel userData)
           {
                var checkingPasswordResult = await _signInManager.PasswordSignInAsync(userData.Email, userData.Password, false, false);
 
@@ -72,7 +70,7 @@ namespace CarRentApp.API.Services
                return null;
           }
 
-          public async Task SignUp(AccountLoginDto userForLoginDto)
+          public async Task SignUp(AccountLoginModel userForLoginDto)
           {
                var user = new User { Email = userForLoginDto.Email, UserName = userForLoginDto.Email };
                var result = await _userManager.CreateAsync(user, userForLoginDto.Password);
@@ -91,12 +89,12 @@ namespace CarRentApp.API.Services
                throw new SignUpFailException("Signup faild!");
           }
 
-          public AccountDto GetUserWithRole()
+          public AccountModel GetUserWithRole()
           {
                var email = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
                var role = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role)?.Value;
 
-               return new AccountDto() { Email = email, Role = role };
+               return new AccountModel() { Email = email, Role = role };
           }
      }
 }

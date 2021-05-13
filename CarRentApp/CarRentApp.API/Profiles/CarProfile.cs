@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CarRentApp.API.Dtos.Car;
+using CarRentApp.API.Models.Car;
 using CarRentApp.Domain;
 using CarRentApp.Domain.Enums;
 using System;
@@ -10,14 +10,14 @@ namespace CarRentApp.API.Profiles
      {
           public CarProfile()
           {
-               CreateMap<Car, CarDto>()
+               CreateMap<Car, CarModel>()
                     .ForMember(destination => destination.Transmission,
                     opt => opt.MapFrom(source => Enum.GetName(typeof(TransmissionEnum), source.TransmissionId)))
                     .ForMember(destination => destination.Fuel,
                     opt => opt.MapFrom(source => Enum.GetName(typeof(FuelEnum), source.FuelId)))
                     .ForMember(destination => destination.Body,
                     opt => opt.MapFrom(source => Enum.GetName(typeof(CarBodyEnum), source.CarBodyId)));
-               CreateMap<Car, CarPreviewDto>();
+               CreateMap<Car, CarPreviewModel>();
           }
      }
 }

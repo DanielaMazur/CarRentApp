@@ -1,6 +1,6 @@
-﻿namespace CarRentApp.API.Dtos.Photo
+﻿namespace CarRentApp.API.Models.Photo
 {
-     public class PhotoDto
+     public class PhotoModel
      {
           public int Id { get; set; }
           public int CarId { get; set; }

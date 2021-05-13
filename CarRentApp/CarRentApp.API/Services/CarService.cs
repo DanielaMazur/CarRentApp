@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CarRentApp.API.Dtos.Car;
+using CarRentApp.API.Models.Car;
 using CarRentApp.API.Infrastructure.Exceptions;
 using CarRentApp.API.Repositories.Interfaces;
 using CarRentApp.API.Services.Interfaces;
@@ -37,7 +37,7 @@ namespace CarRentApp.API.Services
                return car;
           }
 
-          public async Task<Car> AddNewCar(CreateCarDto newCar)
+          public async Task<Car> AddNewCar(CreateCarModel newCar)
           {
                if (await CheckIfRegistrationNumberExists(newCar.RegistrationNumber))
                {
@@ -73,7 +73,7 @@ namespace CarRentApp.API.Services
                await _carRepository.SaveAll();
           }
 
-          public async Task<Car> UpdateCar(int id, UpdateCarDto updatedCar)
+          public async Task<Car> UpdateCar(int id, UpdateCarModel updatedCar)
           {
                var car = await _carRepository.GetById(id);
 

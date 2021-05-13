@@ -1,6 +1,6 @@
-﻿namespace CarRentApp.API.Dtos.CarFilters
+﻿namespace CarRentApp.API.Models.CarFilters
 {
-     public class TransmissionDto
+     public class FuelModel
      {
           public int Id { get; set; }
           public string Type { get; set; }

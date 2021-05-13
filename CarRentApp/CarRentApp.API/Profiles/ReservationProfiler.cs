@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CarRentApp.API.Dtos.Reservation;
+using CarRentApp.API.Models.Reservation;
 using CarRentApp.Domain;
 
 namespace CarRentApp.API.Profiles
@@ -8,7 +8,7 @@ namespace CarRentApp.API.Profiles
      {
           public ReservationProfiler()
           {
-               CreateMap<Reservation, ReservationDto>();
+               CreateMap<Reservation, ReservationModel>();
           }
      }
 }

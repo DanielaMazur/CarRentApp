@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CarRentApp.Domain.EFMapping
+namespace CarRentApp.Domain.EFMapping.Configs
 {
      public class CarBodyConfig : IEntityTypeConfiguration<CarBody>
      {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace CarRentApp.API.Dtos.Reservation
+namespace CarRentApp.API.Models.Reservation
 {
-     public class CreateReservationDto
+     public class CreateReservationModel
      {
           [Required]
           public DateTime StartDate { get; set; }

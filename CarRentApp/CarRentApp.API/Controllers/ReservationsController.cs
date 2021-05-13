@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using CarRentApp.API.Dtos.Reservation;
+using CarRentApp.API.Models.Reservation;
 using CarRentApp.API.Infrastructure.Exceptions;
 using CarRentApp.API.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,22 +23,22 @@ namespace CarRentApp.API.Controllers
 
           [ApiExceptionFilter]
           [HttpGet]
-          public async Task<ActionResult<ICollection<ReservationDto>>> GetClientReservations()
+          public async Task<ActionResult<ICollection<ReservationModel>>> GetClientReservations()
           {
                var reservations = await _reservationService.GetUsersReservations();
 
-               var mappedReservations = _mapper.Map<ICollection<ReservationDto>>(reservations);
+               var mappedReservations = _mapper.Map<ICollection<ReservationModel>>(reservations);
 
                return Ok(mappedReservations);
           }
 
           [ApiExceptionFilter]
           [HttpPost]
-          public async Task<ActionResult<ReservationDto>> PostClientReservation(CreateReservationDto newReservation)
+          public async Task<ActionResult<ReservationModel>> PostClientReservation(CreateReservationModel newReservation)
           {
                var reservation = await _reservationService.CreateClientReservation(newReservation);
 
-               var mappedReservation = _mapper.Map<ReservationDto>(reservation);
+               var mappedReservation = _mapper.Map<ReservationModel>(reservation);
 
                return Ok(mappedReservation);
           }
@@ -54,11 +53,11 @@ namespace CarRentApp.API.Controllers
 
           [ApiExceptionFilter]
           [HttpPatch("{id}")]
-          public async Task<IActionResult> UpdateReservation(int id, [FromBody] UpdateReservationDto updatedReservation)
+          public async Task<IActionResult> UpdateReservation(int id, [FromBody] UpdateReservationModel updatedReservation)
           {
                var reservation = await _reservationService.UpdateReservation(id, updatedReservation);
 
-               var mappedReservation = _mapper.Map<ReservationDto>(reservation);
+               var mappedReservation = _mapper.Map<ReservationModel>(reservation);
 
                return Ok(mappedReservation);
           }

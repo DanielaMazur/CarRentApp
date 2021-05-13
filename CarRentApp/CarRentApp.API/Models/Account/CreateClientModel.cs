@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CarRentApp.API.Dtos.Account
+namespace CarRentApp.API.Models.Account
 {
-     public class CreateClientDto
+     public class CreateClientModel
      {
           [Required]
           public string DriverLicenceId { get; set; }

@@ -3,9 +3,9 @@ using CarRentApp.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using CarRentApp.API.Infrastructure.Annotations;
 
-namespace CarRentApp.API.Dtos.Car
+namespace CarRentApp.API.Models.Car
 {
-     public class CreateCarDto
+     public class CreateCarModel
      {
           [Required]
           public string Brand { get; set; }

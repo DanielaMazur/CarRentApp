@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CarRentApp.API.Dtos.Photo;
+using CarRentApp.API.Models.Photo;
 using CarRentApp.Domain;
 
 namespace CarRentApp.API.Profiles
@@ -8,7 +8,7 @@ namespace CarRentApp.API.Profiles
      {
           public PhotoProfile()
           {
-               CreateMap<Photo, PhotoDto>();
+               CreateMap<Photo, PhotoModel>();
           }
      }
 }

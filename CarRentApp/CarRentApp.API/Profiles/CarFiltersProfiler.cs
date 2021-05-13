@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CarRentApp.API.Dtos.CarFilters;
+using CarRentApp.API.Models.CarFilters;
 using CarRentApp.Domain;
 
 namespace CarRentApp.API.Profiles
@@ -8,10 +8,10 @@ namespace CarRentApp.API.Profiles
      {
           public CarFiltersProfiler()
           {
-               CreateMap<Transmission, TransmissionDto>();
-               CreateMap<Fuel, FuelDto>();
-               CreateMap<CarBody, CarBodyDto>();
-               CreateMap<CarFilters, CarFiltersDto>();
+               CreateMap<Transmission, TransmissionModel>();
+               CreateMap<Fuel, FuelModel>();
+               CreateMap<CarBody, CarBodyModel>();
+               CreateMap<CarFilters, CarFiltersModel>();
           }
      }
 }
