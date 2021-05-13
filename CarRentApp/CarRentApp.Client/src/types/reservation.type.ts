@@ -9,8 +9,8 @@ export declare module Reservation {
   };
 
   export type PostReservation = {
-    startDate: Date;
-    endDate: Date;
+    startDate: string;
+    endDate: string;
     carId: number;
   };
 

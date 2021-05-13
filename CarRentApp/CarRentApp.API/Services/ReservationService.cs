@@ -98,11 +98,6 @@ namespace CarRentApp.API.Services
 
                foreach(var res in carsReservations)
                {
-                    if(res.StartDate == reservation.StartDate && res.EndDate == reservation.EndDate)
-                    {
-                         continue;
-                    }
-
                     if(res.StartDate <= reservation.StartDate && res.EndDate >= reservation.StartDate)
                     {
                          return false;

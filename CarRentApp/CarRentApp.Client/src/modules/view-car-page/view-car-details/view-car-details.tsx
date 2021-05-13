@@ -38,9 +38,18 @@ const ViewCarDetails = (props: ViewCarDetailsProps) => {
     rentDetails: Reservation.ReservationForm
   ) => {
     try {
+      const utcStartDate = new Date(
+        rentDetails.startDate.getTime() - new Date().getTimezoneOffset() * 60000
+      ).toISOString();
+
+      const utcEndDate = new Date(
+        rentDetails.endDate.getTime() - new Date().getTimezoneOffset() * 60000
+      ).toISOString();
+
       const reservation = await ReservationsService.PostReservation({
         carId: props.car.id,
-        ...rentDetails,
+        startDate: utcStartDate,
+        endDate: utcEndDate,
       });
 
       if (reservation == null) {

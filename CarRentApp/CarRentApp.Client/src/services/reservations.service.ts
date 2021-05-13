@@ -7,7 +7,7 @@ const GetReservations = () => {
 };
 
 const PostReservation = (newReservation: Reservation.PostReservation) => {
-  return authFetch<Reservation.Reservation>("/reservations", {
+  return authFetch<Reservation.PostReservation>("/reservations", {
     method: "POST",
     headers: {
       Accept: "application/json",
