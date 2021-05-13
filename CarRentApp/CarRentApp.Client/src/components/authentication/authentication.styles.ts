@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100vh",
+    height: "calc(100vh - 128px)",
   },
   image: {
     backgroundImage: (props: { imageUrl?: string }) => `url(${props.imageUrl})`,
