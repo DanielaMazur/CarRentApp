@@ -45,7 +45,9 @@ const ViewCarPage = () => {
     }
 
     fetchCar(Number(carId));
-  }, [carId, fetchCar]);
+
+    //eslint-disable-next-line
+  }, [carId]);
 
   const handleGoBackToCars = () => {
     history.push("/cars");

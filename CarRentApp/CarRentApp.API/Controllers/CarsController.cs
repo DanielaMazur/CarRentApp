@@ -6,6 +6,7 @@ using CarRentApp.API.Infrastructure.Exceptions;
 using CarRentApp.API.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using CarRentApp.Domain.Enums;
 
 namespace CarRentApp.API.Controllers
 {
@@ -24,9 +25,9 @@ namespace CarRentApp.API.Controllers
 
           [AllowAnonymous]
           [HttpGet]
-          public async Task<IActionResult> Get()
+          public async Task<IActionResult> Get([FromQuery] CarBodyEnum? carBodyType)
           {
-               var cars = await _carService.GetCars();
+               var cars = await _carService.GetFilteredCars(carBodyType);
 
                var carsDto = _mapper.Map<List<CarModel>>(cars);
 

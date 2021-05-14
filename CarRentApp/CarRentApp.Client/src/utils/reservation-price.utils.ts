@@ -5,7 +5,7 @@ const getReservationPrice = (
 ) => {
   const differenceInTime = endDate.getTime() - startDate.getTime();
 
-  const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+  const differenceInDays = differenceInTime / (1000 * 3600 * 24) + 1;
 
   return pricePerDay * differenceInDays;
 };

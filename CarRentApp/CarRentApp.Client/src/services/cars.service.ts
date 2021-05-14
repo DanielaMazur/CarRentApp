@@ -2,8 +2,8 @@ import { fetchApi } from "./fetchApi";
 
 import { Car } from "types";
 
-const GetCars = () => {
-  return fetchApi<Car.Car[]>("/cars");
+const GetCars = (carBodyId?: number) => {
+  return fetchApi<Car.Car[]>(`/cars?carBodyType=${carBodyId}`);
 };
 
 const GetCar = (id: number) => {

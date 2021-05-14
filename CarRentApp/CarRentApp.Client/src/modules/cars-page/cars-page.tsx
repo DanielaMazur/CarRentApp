@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { Container, Grid } from "@material-ui/core";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 
-import { useCarRentAppContext } from "context/useCarRentAppContext";
 import { CarService } from "services";
 import { useFetch } from "hooks/useFetch";
 
@@ -16,23 +15,30 @@ const CarsPage = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const {
-    handlers: { setCars },
-  } = useCarRentAppContext();
+  const queryParams = useLocation().search;
 
   const {
     data: cars,
     fetch: fetchCars,
     isLoading: isCarsLoading,
-  } = useFetch(CarService.GetCars, setCars);
+  } = useFetch(CarService.GetCars);
 
   useEffect(() => {
+    if (queryParams.length !== 0 && queryParams.includes("carBody")) {
+      const carBodyId = queryParams.replace(/^\D+/g, "");
+
+      fetchCars(carBodyId);
+      return;
+    }
+
     if (cars != null) {
       return;
     }
 
     fetchCars();
-  }, [cars, fetchCars]);
+
+    //eslint-disable-next-line
+  }, []);
 
   if (isCarsLoading) {
     return <LoadingPage />;

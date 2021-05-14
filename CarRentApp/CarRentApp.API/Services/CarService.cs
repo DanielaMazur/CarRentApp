@@ -7,6 +7,7 @@ using CarRentApp.API.Infrastructure.Exceptions;
 using CarRentApp.API.Services.Interfaces;
 using CarRentApp.Domain;
 using CarRentApp.Domain.EFMapping.Repositories.Interfaces;
+using CarRentApp.Domain.Enums;
 
 namespace CarRentApp.API.Services
 {
@@ -22,6 +23,11 @@ namespace CarRentApp.API.Services
           public async Task<ICollection<Car>> GetCars()
           {
                return await _carRepository.GetCarsWithInclude(c => c.Photos, c => c.Reservations);
+          }
+
+          public async Task<ICollection<Car>> GetFilteredCars(CarBodyEnum? carBodyId)
+          {
+               return await _carRepository.GetFilteredCarBodyCars(carBodyId, c => c.Photos, c => c.Reservations);
           }
 
           public async Task<Car> GetCarById(int id)

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CarRentApp.API.Models.Car;
 using CarRentApp.Domain;
+using CarRentApp.Domain.Enums;
 
 namespace CarRentApp.API.Services.Interfaces
 {
@@ -12,5 +13,7 @@ namespace CarRentApp.API.Services.Interfaces
           Task<Car> AddNewCar(CreateCarModel newCar);
           Task RemoveCarById(int id);
           Task<Car> UpdateCar(int id, UpdateCarModel updatedCar);
+          Task<ICollection<Car>> GetFilteredCars(CarBodyEnum? carBodyId);
+
      }
 }
