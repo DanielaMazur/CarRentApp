@@ -5,31 +5,48 @@ import Sedan from "assets/images/sedan.jpg";
 import Suv from "assets/images/suv.jpg";
 import Pickup from "assets/images/pickup.jpg";
 
-const VEHICLE_TYPES = [
-  {
+import { Filters } from "types";
+
+const VEHICLE_TYPES: Record<Filters.CarBodyFiltersType, { icon: string }> = {
+  Cabriolet: {
     icon: Cabriolet,
-    name: "Cabriolet",
   },
-  {
+  Hatchback: {
     icon: Hatchback,
-    name: "Hatchback",
   },
-  {
+  Minivan: {
     icon: Minivan,
-    name: "Minivan",
   },
-  {
+  Sedan: {
     icon: Sedan,
-    name: "Sedan",
   },
-  {
+  Suv: {
     icon: Suv,
-    name: "Suv",
   },
-  {
+  PickUp: {
     icon: Pickup,
-    name: "Pickup",
   },
-];
+  Micro: {
+    icon: Suv,
+  },
+  Cuv: {
+    icon: Suv,
+  },
+  Coupe: {
+    icon: Suv,
+  },
+  Roadster: {
+    icon: Suv,
+  },
+  Van: {
+    icon: Suv,
+  },
+  Limousine: {
+    icon: Suv,
+  },
+  Camervan: {
+    icon: Suv,
+  },
+};
 
 export { VEHICLE_TYPES };

@@ -8,6 +8,6 @@ namespace CarRentApp.API.Services.Interfaces
      {
           Task<ICollection<Transmission>> GetTransmissions();
           Task<ICollection<Fuel>> GetFuel();
-          Task<ICollection<CarBody>> GetCarBody();
+          Task<ICollection<CarBody>> GetCarBody(int? numberOfCarBodies = null);
      }
 }

@@ -56,9 +56,9 @@ namespace CarRentApp.API.Controllers
           }
 
           [HttpGet("car-body")]
-          public async Task<IActionResult> GetCarBody()
+          public async Task<IActionResult> GetCarBody([FromQuery] int numberOfCarBodies)
           {
-               var carBody = await _carFiltersService.GetCarBody();
+               var carBody = await _carFiltersService.GetCarBody(numberOfCarBodies);
 
                var carBodyDto = _mapper.Map<ICollection<CarBodyModel>>(carBody);
 

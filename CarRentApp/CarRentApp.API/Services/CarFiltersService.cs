@@ -29,9 +29,9 @@ namespace CarRentApp.API.Services
                return await _fuelRepository.GetAll();
           }
 
-          public async Task<ICollection<CarBody>> GetCarBody()
+          public async Task<ICollection<CarBody>> GetCarBody(int? numberOfCarBodies = null)
           {
-               return await _carBodyRepository.GetAll();
+               return await _carBodyRepository.GetFirstXCarBodies(numberOfCarBodies);
           }
      }
 }
