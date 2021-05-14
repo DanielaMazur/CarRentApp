@@ -6,7 +6,7 @@ const useFetch = <T>(
   service: (args: any) => Promise<T>,
   setContextState?: React.Dispatch<React.SetStateAction<T>>
 ) => {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<T>();
 
   const {

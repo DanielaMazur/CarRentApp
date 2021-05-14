@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Grid, Container } from "@material-ui/core";
+import { Grid, Container, Typography, Box } from "@material-ui/core";
 
 import { ReservationsService } from "services";
 import { useFetch } from "hooks/useFetch";
@@ -36,6 +36,19 @@ const Reservations = () => {
           </Grid>
         ))}
       </Grid>
+
+      {(reservations == null || reservations.length === 0) && (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="80vh"
+        >
+          <Typography variant="h5" align="center">
+            You have no reservations yet
+          </Typography>
+        </Box>
+      )}
     </Container>
   );
 };

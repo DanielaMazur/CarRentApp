@@ -1,41 +1,21 @@
-import { useEffect } from "react";
-import {
-  Grid,
-  Typography,
-  Box,
-  Button,
-  CircularProgress,
-} from "@material-ui/core";
+import { Grid, Typography, Box, Button } from "@material-ui/core";
 import { useHistory } from "react-router";
-
-import { CarFiltersService } from "services";
 
 import { VEHICLE_TYPES } from "const";
 
-import { useStyles } from "./vehicle-section.styles";
-import { useFetch } from "hooks/useFetch";
+import { Filters } from "types";
 
-const VehiclesSection = () => {
+import { useStyles } from "./vehicle-section.styles";
+
+export type VehiclesSectionProps = {
+  carBodyFilters?: Filters.CarBodyFilters[];
+};
+
+const VehiclesSection = (props: VehiclesSectionProps) => {
   const classes = useStyles();
   const history = useHistory();
 
-  const {
-    data: carBodyFilters,
-    fetch: fetchCarBodyFilters,
-    isLoading,
-  } = useFetch(CarFiltersService.GetCarBodyFilters);
-
   const handleShowAllVehicles = () => history.push("/cars");
-
-  useEffect(() => {
-    fetchCarBodyFilters(6);
-
-    //eslint-disable-next-line
-  }, []);
-
-  if (isLoading) {
-    return <CircularProgress size={50} />;
-  }
 
   return (
     <Box display="flex" flexDirection="column" p="10px">
@@ -52,7 +32,7 @@ const VehiclesSection = () => {
         justify="center"
         className={classes.chooseCarSection}
       >
-        {carBodyFilters?.map((carBodyFilter) => (
+        {props.carBodyFilters?.map((carBodyFilter) => (
           <Grid
             item
             key={carBodyFilter.id}
