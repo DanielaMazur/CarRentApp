@@ -30,7 +30,7 @@ const SignUp = () => {
 
       login({ accessToken });
 
-      history.push("/");
+      history.goBack();
     } catch (error) {
       addSnackbar({
         status: "error",

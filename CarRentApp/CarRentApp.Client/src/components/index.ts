@@ -5,3 +5,4 @@ export * from "./rent-car-modal";
 export * from "./avatar";
 export * from "./footer";
 export * from "./forms";
+export * from "./redirect-auth-modal";

@@ -26,33 +26,31 @@ const RentCarModal = (props: RentCarModalProps) => {
   const classes = useStyles();
 
   return (
-    <>
-      <Dialog
-        open={props.isOpen}
-        onClose={props.handleClose}
-        aria-labelledby="rent-dialog-title"
-      >
-        <DialogTitle id="rent-dialog-title">Rent</DialogTitle>
+    <Dialog
+      open={props.isOpen}
+      onClose={props.handleClose}
+      aria-labelledby="rent-dialog-title"
+    >
+      <DialogTitle id="rent-dialog-title">Rent</DialogTitle>
 
-        <DialogContent>
-          <DialogContentText>
-            Choose an appropriate date range to make a reservation
-          </DialogContentText>
+      <DialogContent>
+        <DialogContentText>
+          Choose an appropriate date range to make a reservation
+        </DialogContentText>
 
-          <RentCarForm
-            disabledDates={props.disabledDates}
-            carPrice={props.carPrice}
-            handleFormSubmit={props.handleConfirm}
-          />
-        </DialogContent>
+        <RentCarForm
+          disabledDates={props.disabledDates}
+          carPrice={props.carPrice}
+          handleFormSubmit={props.handleConfirm}
+        />
+      </DialogContent>
 
-        <DialogActions>
-          <Button onClick={props.handleClose} className={classes.cancelButton}>
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
+      <DialogActions>
+        <Button onClick={props.handleClose} className={classes.cancelButton}>
+          Cancel
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
-import { Typography, Box, Button, Tooltip } from "@material-ui/core";
+import { Typography, Box, Button } from "@material-ui/core";
 
 import { ReservationsService } from "services";
 import { useAuth } from "services/authProvider";
 import { getUtcDate } from "utils/utc-date.utils";
 import { getDatesFromDateRanges } from "utils/dates-from-date-ranges.utils";
-
 import { useCarRentAppContext } from "context/useCarRentAppContext";
-import { RentCarModal } from "components";
+
+import { RentCarModal, RedirectAuthModal } from "components";
 
 import { Car, Reservation } from "types";
 
@@ -22,6 +22,7 @@ const ViewCarDetails = (props: ViewCarDetailsProps) => {
 
   const [isAuth] = useAuth();
 
+  const [isRedirectAuthModalOpen, setRedirectAuthModalOpen] = useState(false);
   const [isRentModalOpen, setRentModalOpen] = useState(false);
   const [reservedDays, setReservedDays] = useState<Date[]>([]);
 
@@ -29,12 +30,21 @@ const ViewCarDetails = (props: ViewCarDetailsProps) => {
     handlers: { addSnackbar },
   } = useCarRentAppContext();
 
-  const handleOpenRentModal = () => {
-    setRentModalOpen(true);
+  const handleOpenModal = () => {
+    if (isAuth) {
+      setRentModalOpen(true);
+
+      return;
+    }
+    setRedirectAuthModalOpen(true);
   };
 
   const handleCloseRentModal = () => {
     setRentModalOpen(false);
+  };
+
+  const handleCloseRedirectAuthModal = () => {
+    setRedirectAuthModalOpen(false);
   };
 
   const handleConfirmRent = async (
@@ -84,8 +94,10 @@ const ViewCarDetails = (props: ViewCarDetailsProps) => {
   }, [addSnackbar, props.car.id]);
 
   useEffect(() => {
-    fetchReservedCarDays();
-  }, [fetchReservedCarDays]);
+    if (isAuth) {
+      fetchReservedCarDays();
+    }
+  }, [isAuth, fetchReservedCarDays]);
 
   return (
     <>
@@ -124,26 +136,16 @@ const ViewCarDetails = (props: ViewCarDetailsProps) => {
           <b>Price: {props.car.pricePerDay}</b>
         </Typography>
 
-        <Tooltip
-          title={
-            isAuth
-              ? "Click here to make a reservation"
-              : "You should login first"
-          }
-          aria-label="add"
-        >
-          <Box>
-            <Button
-              className={classes.rentButton}
-              variant="contained"
-              color="primary"
-              onClick={handleOpenRentModal}
-              disabled={!isAuth}
-            >
-              Rent
-            </Button>
-          </Box>
-        </Tooltip>
+        <Box>
+          <Button
+            className={classes.rentButton}
+            variant="contained"
+            color="primary"
+            onClick={handleOpenModal}
+          >
+            Rent
+          </Button>
+        </Box>
 
         <RentCarModal
           disabledDates={reservedDays}
@@ -151,6 +153,11 @@ const ViewCarDetails = (props: ViewCarDetailsProps) => {
           isOpen={isRentModalOpen}
           handleConfirm={handleConfirmRent}
           handleClose={handleCloseRentModal}
+        />
+
+        <RedirectAuthModal
+          isOpen={isRedirectAuthModalOpen}
+          handleClose={handleCloseRedirectAuthModal}
         />
       </Box>
     </>

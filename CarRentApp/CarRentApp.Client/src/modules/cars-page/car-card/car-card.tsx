@@ -16,7 +16,7 @@ const CarCard = ({ car }: CarCardProps) => {
       <CardMedia
         className={classes.imageContainer}
         image={car.photos[0]?.path}
-        title="Paella dish"
+        title="Click here to see the car's details"
       />
       <CardContent>
         <Typography variant="h6" color="textSecondary">
