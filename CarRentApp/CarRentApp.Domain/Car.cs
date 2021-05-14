@@ -9,11 +9,11 @@ namespace CarRentApp.Domain
      {
           public string Brand { get; set; }
           public string Color { get; set; }
-          public FuelEnum FuelId { get; set; }
+          public int FuelId { get; set; }
           public Fuel Fuel { get; set; }
-          public TransmissionEnum TransmissionId { get; set; }
+          public int TransmissionId { get; set; }
           public Transmission Transmission { get; set; }
-          public CarBodyEnum CarBodyId { get; set; }
+          public int CarBodyId { get; set; }
           public CarBody CarBody { get; set; }
           public DateTime FabricationYear { get; set; }
           public string RegistrationNumber { get; set; }

@@ -1,4 +1,5 @@
-﻿namespace CarRentApp.Domain
+﻿
+namespace CarRentApp.Domain
 {
      public class CarBody : EntityBase
      {

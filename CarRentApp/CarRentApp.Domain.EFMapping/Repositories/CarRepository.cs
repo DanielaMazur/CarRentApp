@@ -31,7 +31,7 @@ namespace CarRentApp.Domain.EFMapping.Repositories
 
           public async Task<ICollection<Car>> GetFilteredCarBodyCars(CarBodyEnum? carBodyId, params Expression<Func<Car, object>>[] includeProperties)
           {
-               IQueryable<Car> carsWithInlude = carBodyId == null ? _cars : _cars.Where(c => c.CarBodyId == carBodyId);
+               IQueryable<Car> carsWithInlude = carBodyId == null ? _cars : _cars.Where(c => c.CarBodyId == (int)carBodyId);
 
                foreach (var includeProperty in includeProperties)
                {

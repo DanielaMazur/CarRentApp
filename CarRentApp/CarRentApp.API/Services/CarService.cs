@@ -54,9 +54,9 @@ namespace CarRentApp.API.Services
                {
                     Brand = newCar.Brand,
                     Color = newCar.Color,
-                    FuelId = newCar.FuelId,
-                    TransmissionId = newCar.TransmissionId,
-                    CarBodyId = newCar.CarBodyId,
+                    FuelId = (int)newCar.FuelId,
+                    TransmissionId = (int)newCar.TransmissionId,
+                    CarBodyId = (int)newCar.CarBodyId,
                     FabricationYear = newCar.FabricationYear,
                     RegistrationNumber = newCar.RegistrationNumber,
                     Model = newCar.Model,
@@ -105,12 +105,12 @@ namespace CarRentApp.API.Services
 
                if (updatedCar.FuelId.HasValue)
                {
-                    car.FuelId = updatedCar.FuelId.Value;
+                    car.FuelId = (int)updatedCar.FuelId.Value;
                }
 
                if (updatedCar.TransmissionId.HasValue)
                {
-                    car.TransmissionId = updatedCar.TransmissionId.Value;
+                    car.TransmissionId = (int)updatedCar.TransmissionId.Value;
                }
 
                if (updatedCar.FabricationYear.HasValue)
@@ -130,7 +130,7 @@ namespace CarRentApp.API.Services
 
                if (updatedCar.CarBodyId.HasValue)
                {
-                    car.CarBodyId = updatedCar.CarBodyId.Value;
+                    car.CarBodyId = (int)updatedCar.CarBodyId.Value;
                }
 
                if (updatedCar.AirCoditioning.HasValue)

@@ -1,36 +1,41 @@
-import { useEffect, useState } from "react";
-import { Grid, Typography, Box, Button } from "@material-ui/core";
+import { useEffect } from "react";
+import {
+  Grid,
+  Typography,
+  Box,
+  Button,
+  CircularProgress,
+} from "@material-ui/core";
 import { useHistory } from "react-router";
 
 import { CarFiltersService } from "services";
 
 import { VEHICLE_TYPES } from "const";
 
-import { Filters } from "types";
-
 import { useStyles } from "./vehicle-section.styles";
+import { useFetch } from "hooks/useFetch";
 
 const VehiclesSection = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [carBodyFilters, setCarBodyFilters] = useState<
-    Filters.CarBodyFilters[]
-  >([]);
+  const {
+    data: carBodyFilters,
+    fetch: fetchCarBodyFilters,
+    isLoading,
+  } = useFetch(CarFiltersService.GetCarBodyFilters);
 
   const handleShowAllVehicles = () => history.push("/cars");
 
-  const fetchCarBodyFilters = async () => {
-    try {
-      const filters = await CarFiltersService.GetCarBodyFilters(6);
-
-      setCarBodyFilters(filters);
-    } catch (error) {}
-  };
-
   useEffect(() => {
-    fetchCarBodyFilters();
+    fetchCarBodyFilters(6);
+
+    //eslint-disable-next-line
   }, []);
+
+  if (isLoading) {
+    return <CircularProgress size={50} />;
+  }
 
   return (
     <Box display="flex" flexDirection="column" p="10px">
@@ -47,7 +52,7 @@ const VehiclesSection = () => {
         justify="center"
         className={classes.chooseCarSection}
       >
-        {carBodyFilters.map((carBodyFilter) => (
+        {carBodyFilters?.map((carBodyFilter) => (
           <Grid
             item
             key={carBodyFilter.id}

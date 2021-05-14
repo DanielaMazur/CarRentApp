@@ -4,14 +4,16 @@ using CarRentApp.Domain.EFMapping;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarRentApp.Domain.EFMapping.Migrations
 {
     [DbContext(typeof(CarRentAppDbContext))]
-    partial class CarRentAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210514103519_Remove repetitive columns")]
+    partial class Removerepetitivecolumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

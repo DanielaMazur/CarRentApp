@@ -50,7 +50,7 @@ const ViewCarPage = () => {
   }, [carId]);
 
   const handleGoBackToCars = () => {
-    history.push("/cars");
+    history.goBack();
   };
 
   if (isLoading) {
@@ -89,7 +89,7 @@ const ViewCarPage = () => {
         color="secondary"
         onClick={handleGoBackToCars}
       >
-        Go Back to all cars
+        Go Back
       </Button>
     </Container>
   );
