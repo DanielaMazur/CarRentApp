@@ -16,6 +16,7 @@ import { useStyles } from "./rent-car-modal.styles";
 export type RentCarModalProps = {
   carPrice: number;
   isOpen: boolean;
+  disabledDates: Date[];
 
   handleClose: () => void;
   handleConfirm: (formValues: Reservation.ReservationForm) => void;
@@ -37,7 +38,9 @@ const RentCarModal = (props: RentCarModalProps) => {
           <DialogContentText>
             Choose an appropriate date range to make a reservation
           </DialogContentText>
+
           <RentCarForm
+            disabledDates={props.disabledDates}
             carPrice={props.carPrice}
             handleFormSubmit={props.handleConfirm}
           />

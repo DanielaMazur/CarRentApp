@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using CarRentApp.Domain.EFMapping.Repositories.Interfaces;
+using System.Linq;
+using System;
 
 namespace CarRentApp.API.Services
 {
@@ -88,6 +90,15 @@ namespace CarRentApp.API.Services
                await _reservationRepository.SaveAll();
 
                return reservation;
+          }
+
+          public async Task<ICollection<DateTime[]>> GetCarReservedDayRanges(int carId)
+          {
+               var carReservations = await _reservationRepository.GetCarReservations(carId);
+
+               var reservedDayRanges = carReservations.Select(r => new DateTime[2] { r.StartDate, r.EndDate });
+
+               return reservedDayRanges.ToList();
           }
 
           private async Task<bool> IsReservationIntervalValid(Reservation reservation)

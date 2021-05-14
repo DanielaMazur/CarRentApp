@@ -61,5 +61,11 @@ namespace CarRentApp.API.Controllers
 
                return Ok(mappedReservation);
           }
+
+          [HttpGet("car-reserved-days")]
+          public async Task<IActionResult> GetCarReservedDayRanges([FromQuery] int carId)
+          {
+               return Ok(await _reservationService.GetCarReservedDayRanges(carId));
+          }
      }
 }

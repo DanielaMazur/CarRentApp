@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Typography, Box, Button, Tooltip } from "@material-ui/core";
 
 import { ReservationsService } from "services";
 import { useAuth } from "services/authProvider";
+import { getUtcDate } from "utils/utc-date.utils";
+import { getDatesFromDateRanges } from "utils/dates-from-date-ranges.utils";
 
 import { useCarRentAppContext } from "context/useCarRentAppContext";
 import { RentCarModal } from "components";
@@ -21,6 +23,7 @@ const ViewCarDetails = (props: ViewCarDetailsProps) => {
   const [isAuth] = useAuth();
 
   const [isRentModalOpen, setRentModalOpen] = useState(false);
+  const [reservedDays, setReservedDays] = useState<Date[]>([]);
 
   const {
     handlers: { addSnackbar },
@@ -38,13 +41,9 @@ const ViewCarDetails = (props: ViewCarDetailsProps) => {
     rentDetails: Reservation.ReservationForm
   ) => {
     try {
-      const utcStartDate = new Date(
-        rentDetails.startDate.getTime() - new Date().getTimezoneOffset() * 60000
-      ).toISOString();
+      const utcStartDate = getUtcDate(rentDetails.startDate);
 
-      const utcEndDate = new Date(
-        rentDetails.endDate.getTime() - new Date().getTimezoneOffset() * 60000
-      ).toISOString();
+      const utcEndDate = getUtcDate(rentDetails.endDate);
 
       const reservation = await ReservationsService.PostReservation({
         carId: props.car.id,
@@ -55,6 +54,8 @@ const ViewCarDetails = (props: ViewCarDetailsProps) => {
       if (typeof reservation == "string") {
         throw new Error(reservation);
       }
+
+      fetchReservedCarDays();
 
       addSnackbar({
         status: "success",
@@ -67,6 +68,24 @@ const ViewCarDetails = (props: ViewCarDetailsProps) => {
       });
     }
   };
+
+  const fetchReservedCarDays = useCallback(async () => {
+    try {
+      const reservedDayRanges =
+        await ReservationsService.GetCarReservedDayRanges(props.car.id);
+
+      setReservedDays(getDatesFromDateRanges(reservedDayRanges));
+    } catch (error) {
+      addSnackbar({
+        status: "error",
+        message: error.message,
+      });
+    }
+  }, [addSnackbar, props.car.id]);
+
+  useEffect(() => {
+    fetchReservedCarDays();
+  }, [fetchReservedCarDays]);
 
   return (
     <>
@@ -127,6 +146,7 @@ const ViewCarDetails = (props: ViewCarDetailsProps) => {
         </Tooltip>
 
         <RentCarModal
+          disabledDates={reservedDays}
           carPrice={props.car.pricePerDay}
           isOpen={isRentModalOpen}
           handleConfirm={handleConfirmRent}

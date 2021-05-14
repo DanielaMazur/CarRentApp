@@ -6,6 +6,12 @@ const GetReservations = () => {
   return authFetch<Reservation.Reservation[]>("/reservations");
 };
 
+const GetCarReservedDayRanges = (carId: number) => {
+  return authFetch<Reservation.ReservedDayRanges>(
+    `/reservations/car-reserved-days?carId=${carId}`
+  );
+};
+
 const PostReservation = (newReservation: Reservation.PostReservation) => {
   return authFetch<Reservation.PostReservation>("/reservations", {
     method: "POST",
@@ -20,6 +26,7 @@ const PostReservation = (newReservation: Reservation.PostReservation) => {
 const ReservationsService = {
   GetReservations,
   PostReservation,
+  GetCarReservedDayRanges,
 };
 
 export { ReservationsService };

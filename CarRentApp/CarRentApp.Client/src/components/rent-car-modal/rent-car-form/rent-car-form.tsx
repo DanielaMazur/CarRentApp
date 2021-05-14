@@ -21,6 +21,7 @@ const RentCarFormSchema = yup.object().shape({
 });
 
 export type RentCarFormProps = {
+  disabledDates: Date[];
   carPrice: number;
   handleFormSubmit: (formValues: Reservation.ReservationForm) => void;
 };
@@ -72,6 +73,7 @@ const RentCarForm = (props: RentCarFormProps) => {
         control={control}
         render={({ field: { onChange, value } }) => (
           <DateRange
+            disabledDates={props.disabledDates}
             minDate={new Date()}
             className={classes.dateRange}
             onChange={(item) => handleDatePickerChange(item, onChange)}

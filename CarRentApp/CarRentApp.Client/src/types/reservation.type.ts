@@ -8,6 +8,8 @@ export declare module Reservation {
     car: Car.CarPreview;
   };
 
+  export type ReservedDayRanges = [string, string][];
+
   export type PostReservation = {
     startDate: string;
     endDate: string;
